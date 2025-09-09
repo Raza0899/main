@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WuuMart Co. - Your Favourite Games and Blogs</title>
+    
+    <meta name="description" content="Discover WuuMart: your favorite hub for online gaming and valuable blogs. Play a wide range of free games or read our latest posts on tech, lifestyle, and more.">
+    <meta name="keywords" content="WuuMart, online games, free games, blog, gaming, tech blogs, lifestyle blogs, Play N Joy">
+    
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="topnav">
+        <div class="menu-header">
+            <div class="menu-icon" onclick="toggleMenu(); this.classList.toggle('change');">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <a class="logo-link" href="/">
+                <img src="/images/logo.png" alt="WuuMart official logo, a symbol for online games and blogs." class="nav-logo">
+                WuuMart
+            </a>
+        </div>
+        <div class="menu-links">
+            <a href="/">Home</a>
+            <a href="/information/news">News</a>
+            <a href="/information/contact">Contact Us</a>
+            <a href="/information/about">About Us</a>
+        </div>
+    </div>
+    
+    <main>
+        <div class="main-sections">
+            <a href="https://games.wuumart.xyz" class="main-link">
+                <div class="games">
+                    <img src="/game.png" alt="An illustration representing a variety of free online games available on WuuMart.">
+                    <h2>Play N Joy - WuuMart Games</h2>
+                </div>
+            </a>
+            
+            <a href="https://www.blog.wuumart.xyz" class="main-link">
+                <div class="blogs">
+                    <img src="/blog.png" alt="An illustration representing a collection of articles and blogs on WuuMart.">
+                    <h2>WuuMart Blogs</h2>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer>&copy; All rights Reserved</footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.menu-links');
+            menu.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
