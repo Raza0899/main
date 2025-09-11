@@ -1,25 +1,20 @@
-# Enable the RewriteEngine
-# This is necessary for URL rewriting
+# Deny access to .htaccess files
+# This prevents unauthorized users from viewing the contents
+# of your .htaccess file from their browser.
+<Files ".ht*">
+  Require all denied
+</Files>
+
+# Enable URL rewriting
 RewriteEngine On
 
 # 404 Error Page
-# When a user requests a page that does not exist,
-# they will be redirected to your custom 404.html file.
+# Redirects users to your custom 404.html page if a file is not found.
 ErrorDocument 404 /404.html
 
-# URL Rewriting for Dotless URLs
-# This section makes it so your server automatically
-# treats any URL without a file extension as an HTML file.
+# Clean URLs
+# This rule removes the .html extension from your URLs.
 # For example, a request for /about becomes /about.html
-# and a request for /contact becomes /contact.html
-# This makes your URLs look cleaner and more professional.
-
-# Condition: Only apply this rule if the request is NOT for an existing file
 RewriteCond %{REQUEST_FILENAME} !-f
-# Condition: Only apply this rule if the request is NOT for an existing directory
 RewriteCond %{REQUEST_FILENAME} !-d
-# Rule: If the above conditions are met, add ".html" to the end of the URL
-# The [NC,L] flags mean:
-# NC = No Case (the rule is not case sensitive)
-# L = Last (stop processing after this rule)
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
