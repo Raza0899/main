@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const INITIAL_P = "Best place to check your internet Speed";
 
     // --- Configuration Updated with User's URL ---
-    const DOWNLOAD_FILE_URL = 'https://examplefile.com/file-download/324';
+    const DOWNLOAD_FILE_URL = 'https://link.testfile.org/PDF20MB';
     const DOWNLOAD_FILE_SIZE_BYTES = 20 * 1024 * 1024; // 20 MB in bytes
     const UPLOAD_TEST_DURATION_SECONDS = 10;
     // ---------------------------------------------
