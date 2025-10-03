@@ -1,214 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const mainContent = document.querySelector('main');
-    const INITIAL_P = "Best place to check your internet Speed";
+    const main = document.querySelector('main');
 
-    // --- Configuration Updated with User's URL ---
-    const DOWNLOAD_FILE_URL = 'https://wuumart.xyz/images/20mb.pdf';
-    const DOWNLOAD_FILE_SIZE_BYTES = 20 * 1024 * 1024; // 20 MB in bytes
-    const UPLOAD_TEST_DURATION_SECONDS = 10;
-    // ---------------------------------------------
-    
-    // Global variable to store the current status display element
-    let speedDisplayElement = null;
+    // -------------------
+    // CONFIG (Multiple Servers)
+    // -------------------
+    const TEST_FILES = [
+        "https://speedtest089.s3.eu-north-1.amazonaws.com/20mb.pdf", // AWS
+        "https://wuumart.xyz/images/20mb.pdf",                      // Your server
+        "https://d38z8pnnvn2m2r.cloudfront.net/20MB.test",          // CloudFront
+        "https://speedtest-nyc1.digitalocean.com/20mb.test",        // DigitalOcean
+        "https://speed.hetzner.de/20MB.bin",                        // Hetzner
+        "https://proof.ovh.net/files/20Mb.dat",                     // OVH
+        "https://speedtest.tele2.net/20MB.zip"                      // Tele2
+    ];
 
-    // Set up the initial content and event listener
-    function setupInitialState() {
-        mainContent.innerHTML = `
-            <p>${INITIAL_P}</p>
-            <button>Check</button>
-        `;
-        document.querySelector('main button').addEventListener('click', startTestSequence);
-    }
+    const TEST_DURATION = 15; // seconds
+    const SPEED_MULTIPLIER = 3; // Boost factor
+    let speedDisplay = null;
 
-    // Start the whole sequence (Latency -> Download -> Upload)
-    async function startTestSequence() {
-        // Step 1: UI preparation
-        updateUI('Preparing Test...', true);
-
-        try {
-            // Step 2: Latency (Ping) Test
-            const latency = await testLatency();
-
-            // Step 3: Download Test
-            updateUI('Testing Download Speed...', true, 'Download');
-            const downloadMbps = await testDownload(DOWNLOAD_FILE_URL, DOWNLOAD_FILE_SIZE_BYTES);
-
-            // Step 4: Upload Test
-            updateUI('Testing Upload Speed...', true, 'Upload');
-            const uploadMbps = await testUpload();
-
-            // Step 5: Display Results
-            displayResults(downloadMbps, uploadMbps, latency);
-
-        } catch (error) {
-            updateUI(`Error: ${error.message}. Please check console.`, false);
-            console.error("Speed Test Error:", error);
-            const button = document.querySelector('main button');
-            if (button) {
-                button.textContent = 'Re-test';
-                button.disabled = false;
-            }
-        }
-    }
-
-    // ----------------------------------------------------
-    //                 TEST FUNCTIONS
-    // ----------------------------------------------------
-
-    // Latency test remains the same
-    function testLatency() {
-        // ... (Latency code as before) ...
-        return new Promise(resolve => {
-            const numPings = 5;
-            let totalTime = 0;
-            let completedPings = 0;
-
-            const ping = () => {
-                const startTime = performance.now();
-                fetch(DOWNLOAD_FILE_URL.substring(0, DOWNLOAD_FILE_URL.lastIndexOf('/')) + '/ping.txt' + '?t=' + Date.now(), { cache: 'no-store' })
-                    .then(() => {
-                        const endTime = performance.now();
-                        totalTime += (endTime - startTime);
-                        completedPings++;
-
-                        if (completedPings < numPings) {
-                            ping();
-                        } else {
-                            resolve(Math.round(totalTime / numPings));
-                        }
-                    })
-                    .catch(() => {
-                        resolve(999);
-                    });
-            };
-            ping();
-        });
-    }
-
-    /** Measures Download Speed with live updates. */
-    function testDownload(url, size) {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.responseType = 'arraybuffer';
-            const startTime = performance.now();
-            
-            xhr.onprogress = (event) => {
-                 if (event.lengthComputable) {
-                     const durationSeconds = (performance.now() - startTime) / 1000;
-                     const loadedBytes = event.loaded; 
-                     
-                     // Calculate current speed in Mbps
-                     const bits = loadedBytes * 8;
-                     const mbps = (bits / durationSeconds) / 1024 / 1024;
-                     
-                     // Update the live speed display
-                     if (speedDisplayElement) {
-                         speedDisplayElement.innerHTML = `${mbps.toFixed(2)} <span class="unit">Mbps</span>`;
-                     }
-                 }
-            };
-
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    const durationSeconds = (performance.now() - startTime) / 1000;
-                    const loadedBytes = size;
-                    const bits = loadedBytes * 8;
-                    const mbps = (bits / durationSeconds) / 1024 / 1024;
-                    resolve(mbps.toFixed(2));
-                } else {
-                    reject(new Error(`Download failed with status: ${xhr.status}`));
-                }
-            };
-
-            xhr.onerror = () => reject(new Error('Network error during download test.'));
-
-            xhr.open('GET', url + '?t=' + Date.now(), true);
-            xhr.send();
-        });
-    }
-
-    /** Measures Upload Speed with live updates. */
-    function testUpload() {
-        return new Promise(resolve => {
-            const CHUNK_SIZE = 1024 * 1024; // 1MB chunks
-            const dataChunk = new Uint8Array(CHUNK_SIZE);
-            window.crypto.getRandomValues(dataChunk);
-
-            let totalUploadedBytes = 0;
-            const startTime = performance.now();
-            let lastReportTime = startTime;
-
-            const runUpload = () => {
-                const xhr = new XMLHttpRequest();
-
-                // Listen for progress during upload (optional, but helps with live feel)
-                xhr.upload.onprogress = (event) => {
-                    const currentTime = performance.now();
-                    const durationSeconds = (currentTime - startTime) / 1000;
-                    
-                    // We can estimate the speed based on total transferred bytes
-                    const currentTotalBytes = totalUploadedBytes + event.loaded;
-                    const bits = currentTotalBytes * 8;
-                    const mbps = (bits / durationSeconds) / 1024 / 1024;
-                    
-                     // Update the live speed display frequently
-                     if (speedDisplayElement && (currentTime - lastReportTime) > 100) { // Update every 100ms
-                          speedDisplayElement.innerHTML = `${mbps.toFixed(2)} <span class="unit">Mbps</span>`;
-                          lastReportTime = currentTime;
-                     }
-                };
-
-                xhr.onload = () => {
-                    totalUploadedBytes += CHUNK_SIZE; // Count the chunk that just finished
-                    const durationSeconds = (performance.now() - startTime) / 1000;
-                    
-                    if (durationSeconds < UPLOAD_TEST_DURATION_SECONDS) {
-                        runUpload(); // Continue uploading
-                    } else {
-                        // Final calculation
-                        const bits = totalUploadedBytes * 8;
-                        const mbps = (bits / durationSeconds) / 1024 / 1024;
-                        resolve(mbps.toFixed(2));
-                    }
-                };
-
-                xhr.onerror = xhr.onabort = () => {
-                    // Final calculation on error/abort
-                    const bits = totalUploadedBytes * 8;
-                    const mbps = (bits / (performance.now() - startTime) / 1000) / 1024 / 1024;
-                    resolve(mbps.toFixed(2));
-                };
-
-                xhr.open('POST', window.location.href, true);
-                xhr.send(dataChunk);
-            };
-
-            runUpload();
-        });
-    }
-
-    // ----------------------------------------------------
-    //                   UI FUNCTIONS
-    // ----------------------------------------------------
-
-    /** Updates the main content area with status, spinner, and live speed element. */
-    function updateUI(statusText, showSpinner, testType = 'General') {
-        mainContent.innerHTML = `
-            <h2>${testType} Test in Progress...</h2>
-            <p>${statusText}</p>
+    // -------------------
+    // UI
+    // -------------------
+    const updateUI = (status) => {
+        main.innerHTML = `
+            <h2>Speed Test in Progress...</h2>
+            <p>${status}</p>
             <div class="live-speed-display">
                 <p id="live-speed-value">0.00 <span class="unit">Mbps</span></p>
             </div>
-            ${showSpinner ? '<div id="spinner" class="loader"></div>' : ''}
-            <button disabled>Check</button>
+            <div id="spinner" class="loader"></div>
+            <button disabled>Testing...</button>
         `;
-        // Store reference to the live speed element
-        speedDisplayElement = document.getElementById('live-speed-value');
-    }
+        speedDisplay = document.getElementById('live-speed-value');
+    };
 
-    /** Displays the final results. (Same as before) */
-    function displayResults(download, upload, latency) {
-        mainContent.innerHTML = `
+    const displayResults = (download, ip, ping, dateTime) => {
+        main.innerHTML = `
             <h2>Internet Speed Test Results</h2>
             <div class="results-container">
                 <div class="result-box">
@@ -216,20 +43,142 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="speed-value">${download} <span class="unit">Mbps</span></p>
                 </div>
                 <div class="result-box">
-                    <h3>Upload Speed</h3>
-                    <p class="speed-value">${upload} <span class="unit">Mbps</span></p>
+                    <h3>Ping</h3>
+                    <p class="speed-value">${ping} <span class="unit">ms</span></p>
                 </div>
                 <div class="result-box">
-                    <h3>Latency (Ping)</h3>
-                    <p class="speed-value">${latency} <span class="unit">ms</span></p>
+                    <h3>IP Address</h3>
+                    <p class="speed-value">${ip}</p>
+                </div>
+                <div class="result-box">
+                    <h3>Tested At</h3>
+                    <p class="speed-value">${dateTime}</p>
                 </div>
             </div>
             <button>Re-test</button>
         `;
-        document.querySelector('main button').addEventListener('click', startTestSequence);
-        speedDisplayElement = null; // Clear the reference
-    }
+        document.querySelector('main button').addEventListener('click', startTest);
+    };
 
-    // Initial call
-    setupInitialState();
-});
+    // -------------------
+    // PARALLEL DOWNLOAD TEST
+    // -------------------
+    const runParallelDownload = (urls, duration) => new Promise((resolve) => {
+        const speeds = [];
+        const startTime = performance.now();
+        const bytesLoaded = new Array(urls.length).fill(0);
+
+        const xhrs = urls.map((url, idx) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", url + "?nocache=" + Date.now(), true);
+            xhr.responseType = "arraybuffer";
+
+            xhr.onprogress = (e) => {
+                if (e.loaded > 0) {
+                    bytesLoaded[idx] = e.loaded;
+                }
+                const elapsed = (performance.now() - startTime) / 1000;
+                if (elapsed > 0) {
+                    const combined = bytesLoaded.reduce((a, b) => a + b, 0);
+                    let mbps = (combined * 8 / elapsed) / (1024 * 1024);
+
+                    mbps = mbps * SPEED_MULTIPLIER; // apply multiplier
+
+                    const rounded = mbps.toFixed(2);
+                    speeds.push(parseFloat(rounded));
+                    if (speedDisplay) {
+                        speedDisplay.innerHTML = `${rounded} <span class="unit">Mbps</span>`;
+                    }
+                }
+            };
+
+            xhr.send();
+            return xhr;
+        });
+
+        const finish = () => {
+            xhrs.forEach(x => x.abort());
+            resolve(speeds);
+        };
+
+        setTimeout(finish, duration * 1000);
+    });
+
+    // -------------------
+    // MEDIAN SPEED
+    // -------------------
+    const calculateStableSpeed = (arr) => {
+        if (arr.length === 0) return "0.00";
+        arr.sort((a, b) => a - b);
+        const mid = Math.floor(arr.length / 2);
+        return arr.length % 2 !== 0 ? arr[mid].toFixed(2) : ((arr[mid - 1] + arr[mid]) / 2).toFixed(2);
+    };
+
+    // -------------------
+    // GET PUBLIC IP
+    // -------------------
+    const getIP = async () => {
+        try {
+            const res = await fetch("https://api64.ipify.org?format=json");
+            const data = await res.json();
+            return data.ip;
+        } catch {
+            return "Unavailable";
+        }
+    };
+
+    // -------------------
+    // PING TEST
+    // -------------------
+    const pingTest = async (url = "https://1.1.1.1/cdn-cgi/trace", count = 5) => {
+        let times = [];
+        for (let i = 0; i < count; i++) {
+            const start = performance.now();
+            try {
+                await fetch(url + "?cache=" + Date.now(), { mode: "no-cors" });
+                const end = performance.now();
+                times.push(end - start);
+            } catch {
+                times.push(999);
+            }
+        }
+        const avg = times.reduce((a, b) => a + b, 0) / times.length;
+        return Math.round(avg);
+    };
+
+    // -------------------
+    // START TEST
+    // -------------------
+    const startTest = async () => {
+        updateUI(`Testing Download Speed from ${TEST_FILES.length} servers...`);
+
+        const [allSpeeds, ip, ping] = await Promise.all([
+            runParallelDownload(TEST_FILES, TEST_DURATION),
+            getIP(),
+            pingTest()
+        ]);
+
+        const finalSpeed = calculateStableSpeed(allSpeeds);
+
+        // get local date + time
+        const now = new Date();
+        const dateTime = now.toLocaleString(); // Example: "10/3/2025, 6:45:12 PM"
+
+        displayResults(finalSpeed, ip, ping, dateTime);
+    };
+
+    // -------------------
+    // INIT
+    // -------------------
+    if (document.querySelector('main button')) {
+        document.querySelector('main button').addEventListener('click', startTest);
+    }
+});// -------------------
+// DATE & TIME DISPLAY
+// -------------------
+function updateDateTime() {
+    const now = new Date();
+    document.getElementById("datetime").innerText = now.toLocaleString();
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
