@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const TEST_DURATION = 15; // seconds
-    const SPEED_MULTIPLIER = 3; // Boost factor
     let speedDisplay = null;
 
     // -------------------
@@ -81,8 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (elapsed > 0) {
                     const combined = bytesLoaded.reduce((a, b) => a + b, 0);
                     let mbps = (combined * 8 / elapsed) / (1024 * 1024);
-
-                    mbps = mbps * SPEED_MULTIPLIER; // apply multiplier
 
                     const rounded = mbps.toFixed(2);
                     speeds.push(parseFloat(rounded));
@@ -162,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // get local date + time
         const now = new Date();
-        const dateTime = now.toLocaleString(); // Example: "10/3/2025, 6:45:12 PM"
+        const dateTime = now.toLocaleString();
 
         displayResults(finalSpeed, ip, ping, dateTime);
     };
@@ -173,7 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('main button')) {
         document.querySelector('main button').addEventListener('click', startTest);
     }
-});// -------------------
+});
+
+// -------------------
 // DATE & TIME DISPLAY
 // -------------------
 function updateDateTime() {
