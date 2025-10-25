@@ -3,79 +3,1088 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WuuMart Co. - Your Favourite Games and Blogs</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    <meta name="description" content="Discover WuuMart: your favorite hub for online gaming and valuable blogs. Play a wide range of free games or read our latest posts on tech, lifestyle, and more.">
-    <meta name="keywords" content="WuuMart, online games, free games, blog, gaming, tech blogs, lifestyle blogs, Play N Joy">
-    
-   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3803306925598998"
-     crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/styles.css">
+    <title>Tolzo.site - Free Digital Tools for Content Creators & Marketers</title>
+    <meta name="description" content="Powerful, free digital marketing tools for content creators. Generate hashtags, SEO keywords, YouTube tags, and trending content ideas - all completely free.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+        .custom-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .dropdown { display: none; }
+        .dropdown.active { display: block; }
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: block; }
+    </style>
 </head>
-<body>
-    <div class="topnav">
-        <div class="menu-header">
-            <div class="menu-icon" onclick="toggleMenu(); this.classList.toggle('change');">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-            <a class="logo-link" href="/">
-                <img src="/images/logo.png" alt="WuuMart official logo, a symbol for online games and blogs." class="nav-logo">
-                WuuMart
-            </a>
-        </div>
-        <div class="menu-links">
-            <a href="/">Home</a>
-            <a href="https://games.wuumart.xyz/information/news.html">News</a>
-            <a href="https://games.wuumart.xyz/information/contact.html">Contact Us</a>
-            <a href="https://games.wuumart.xyz/information/about.html">About Us</a>
-        </div>
-    </div>
-    
-    <main>
-        <div class="main-sections">
-            <a href="https://games.wuumart.xyz" class="main-link">
-                <div class="games">
-                    <img src="/images/game.png" alt="An illustration representing a variety of free online games available on WuuMart.">
-                    <h2>Play N Joy - WuuMart Games</h2>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-gray-800" id="header-logo">LearnForAll</span>
                 </div>
-            </a>
-            
-            <a href="https://blogs.wuumart.xyz" class="main-link">
-                <div class="blogs">
-                    <img src="/images/blog.png" alt="An illustration representing a collection of articles and blogs on WuuMart.">
-                    <h2>WuuMart Blogs</h2>
-                </div>
-                <a href="https://wuumart.xyz/speedtest.html" class="main-link">
-                <div class="blogs">
-                    <img src="/images/speed.png" alt="An image to representing wifi icon to check internet speed">
-                    <h2>Speed Test</h2>
-                </div>
-            </a>
-        </div>
-    </main>
 
-    <footer>&copy; All rights Reserved</footer>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                    <a href="about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
+                    <div class="relative">
+                        <button class="text-gray-700 hover:text-blue-600 font-medium flex items-center" onclick="toggleDropdown()">
+                            Tools
+                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border">
+                            <a href="instagram-tiktok-hashtag-tool" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Instagram & TikTok Hashtag Generator</a>
+                            <a href="youtube-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">YouTube Tags Generator</a>
+                            <a href="seo-keyword-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">SEO Keyword Generator</a>
+                            <a href="trending-tags-finder" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Trending Tags Finder</a>
+                            <a href="blog-post-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Blog Post Tags Generator</a>
+                        </div>
+                    </div>
+                    <a href="contact" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-menu md:hidden mt-4 pb-4">
+                <a href="/" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
+                <a href="about" class="block py-2 text-gray-700 hover:text-blue-600">About</a>
+                <div class="py-2">
+                    <span class="text-gray-700 font-medium">Tools</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="instagram-tiktok-hashtag-tool" class="block text-sm text-gray-600 hover:text-blue-600">Instagram & TikTok Hashtag Generator</a>
+                        <a href="youtube-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">YouTube Tags Generator</a>
+                        <a href="seo-keyword-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">SEO Keyword Generator</a>
+                        <a href="trending-tags-finder" class="block text-sm text-gray-600 hover:text-blue-600">Trending Tags Finder</a>
+                        <a href="blog-post-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">Blog Post Tags Generator</a>
+                    </div>
+                </div>
+                <a href="contact" class="block py-2 text-gray-700 hover:text-blue-600">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">Free Digital Tools for Content Creators & Marketers</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Powerful, easy-to-use tools to optimize your content, increase visibility, and grow your audience — all completely free.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a href="#tools">
+  <button class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+    Explore Tools
+  </button>
+</a>
+<a href="about">
+    <button class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
+        Learn More
+    </button>
+</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Welcome to <span id="welcome-domain">LearnForAll</span></h2>
+                <div class="text-lg text-gray-600 leading-relaxed space-y-6">
+                    <p>In today's rapidly evolving digital ecosystem, content creators, marketers, bloggers, and social media influencers encounter an increasingly complex challenge: making their content shine brightly in an oversaturated online marketplace. Whether your goal is achieving higher search engine rankings, boosting social media engagement rates, expanding your YouTube subscriber base, or driving more traffic to your website, having access to the right optimization tools can be the decisive factor between success and obscurity.</p>
+                    
+                    <p>This is precisely where <span id="content-domain">LearnForAll</span> becomes your indispensable digital companion. We have meticulously developed a comprehensive collection of cutting-edge digital marketing tools specifically engineered to empower you in optimizing your content strategy, maximizing your online visibility, and establishing meaningful connections with your target audience more effectively than ever before. From generating perfectly curated hashtags for Instagram and TikTok to discovering the most impactful tags for your YouTube video content, our sophisticated tools transform the complex world of digital optimization into an accessible and streamlined experience.</p>
+
+                    <p>What truly distinguishes <span id="platform-domain">LearnForAll</span> from countless other platforms in the digital marketing space? Unlike numerous competitors that restrict functionality behind expensive paywalls or offer severely limited free tiers, our entire suite of professional-grade tools remains completely free to use with absolutely no restrictions on functionality. No mandatory user registration processes, no hidden subscription fees, no frustrating usage limitations, and no premium upgrade pressure tactics. We firmly believe that high-quality digital optimization tools should be universally accessible to every creator, regardless of their current budget constraints or level of technical expertise.</p>
+
+                    <p>Our fundamental mission remains elegantly simple yet powerfully impactful: to democratize access to enterprise-level digital optimization tools and empower creators of every scale to achieve their ambitious goals. Whether you're taking your first steps in the digital content creation journey or seeking to elevate your well-established brand to unprecedented heights, <span id="mission-domain">LearnForAll</span> provides all the essential resources, insights, and tools you need to thrive in today's fiercely competitive digital landscape.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="py-16 bg-white">
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Free Digital Tools</h2>
+            <p class="text-xl text-center mb-12 text-gray-600 max-w-3xl mx-auto">Discover our comprehensive collection of powerful tools designed to boost your online presence and simplify your digital marketing efforts across all major platforms.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tool 1 -->
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-pink-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zM12 7c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm5.5-1.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800">Instagram & TikTok Hashtag Generator</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Amplify your social media reach with precisely targeted hashtags. Our advanced AI-powered hashtag generator analyzes your content context and suggests the most effective hashtags to dramatically increase visibility and engagement.</p>
+                    <ul class="text-sm text-gray-500 mb-4 space-y-1">
+                        <li>• Generate niche-specific hashtags</li>
+                        <li>• Perfect mix of popular and niche tags</li>
+                        <li>• Avoid shadowbanned hashtags</li>
+                    </ul>
+<a href="instagram-tiktok-hashtag-tool">
+    <button class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition duration-300">
+        Try Hashtag Generator
+    </button>
+</a>
+                </div>
+
+                <!-- Tool 2 -->
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-red-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800">YouTube Tags Generator</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Optimize your YouTube videos for maximum discoverability. Our intelligent YouTube tag generator creates relevant, high-performing tags that help your videos rank higher in search results.</p>
+                    <ul class="text-sm text-gray-500 mb-4 space-y-1">
+                        <li>• SEO-optimized video tags</li>
+                        <li>• Competitor tag analysis</li>
+                        <li>• Trending YouTube keywords</li>
+                    </ul>
+<a href="youtube-tags-generator" class="inline-block bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300">
+    Try YouTube Tags Generator
+</a>
+                </div>
+
+                <!-- Tool 3 -->
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-green-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800">SEO Keyword Generator</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Enhance your website's search engine ranking with our comprehensive SEO keyword generator. Discover the most effective keywords to drive organic traffic to your content.</p>
+                    <ul class="text-sm text-gray-500 mb-4 space-y-1">
+                        <li>• Long-tail keyword suggestions</li>
+                        <li>• Keyword difficulty analysis</li>
+                        <li>• Search volume indicators</li>
+                    </ul>
+<a href="seo-keyword-tags-generator" class="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">
+    Try SEO Keyword Generator
+</a>
+                </div>
+
+                <!-- Tool 4 -->
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-purple-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800">Trending Tags Finder</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Stay ahead of the curve with our real-time trending tags tool. Discover what's currently popular across different platforms and leverage these trends to boost visibility.</p>
+                    <ul class="text-sm text-gray-500 mb-4 space-y-1">
+                        <li>• Real-time trend monitoring</li>
+                        <li>• Platform-specific trends</li>
+                        <li>• Niche-specific trending topics</li>
+                    </ul>
+<a href="trending-tags-finder" class="inline-block bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition duration-300">
+    Try Trending Tags Finder
+</a>
+                </div>
+
+                <!-- Tool 5 -->
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-blue-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8s0 0 0 0l-6-6zM6 20V4h7v5h5v11H6z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800">Blog Post Tags Generator</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Enhance your blog's organization and discoverability with our intelligent blog post tags generator. Create relevant categories and tags that improve SEO and user experience.</p>
+                    <ul class="text-sm text-gray-500 mb-4 space-y-1">
+                        <li>• Content-relevant tag suggestions</li>
+                        <li>• Category organization</li>
+                        <li>• Internal linking opportunities</li>
+                    </ul>
+<a href="blog-post-tags-generator" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
+    Try Blog Post Tags Generator
+</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Why Choose <span id="choose-domain">LearnForAll</span>?</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">100% Free, Always</h3>
+                    <p class="text-gray-600">All our tools are completely free to use with full functionality. No premium tiers, no hidden fees, and no frustrating limitations.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">No Login Required</h3>
+                    <p class="text-gray-600">Access all our tools instantly without creating an account or sharing your personal information. Just visit and start using.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13 1L13 8L20 8C21.1 8 22 8.9 22 10V20C22 21.1 21.1 22 20 22H4C2.9 22 2 21.1 2 20V4C2 2.9 2.9 2 4 2H11C12.1 2 13 2.9 13 4V1Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Lightning Fast</h3>
+                    <p class="text-gray-600">Our tools are designed for speed and efficiency, delivering instant results so you can optimize your content quickly.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-purple-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Mobile Responsive</h3>
+                    <p class="text-gray-600">Access our tools from any device. Our mobile-responsive design ensures a seamless experience on smartphones and tablets.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Regularly Updated</h3>
+                    <p class="text-gray-600">We continuously update our tools to reflect the latest digital marketing trends and algorithm changes across platforms.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">User-Friendly</h3>
+                    <p class="text-gray-600">Our intuitive interfaces make our tools accessible to everyone, regardless of technical expertise or experience level.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Who Can Benefit from Our Tools?</h2>
+            <p class="text-xl text-center mb-12 text-gray-600 max-w-3xl mx-auto"><span id="audience-domain">LearnForAll</span> serves a diverse community of digital creators and marketers across various platforms and niches.</p>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <svg class="w-6 h-6 text-blue-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.50-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                        </svg>
+                        Content Creators
+                    </h3>
+                    <div class="space-y-4 text-gray-600">
+                        <p><strong>YouTubers</strong> seeking to optimize video tags for better discoverability and achieve higher rankings in search results and recommended sections.</p>
+                        <p><strong>Instagram Influencers</strong> looking for effective hashtags to dramatically increase post reach, engagement rates, and follower growth.</p>
+                        <p><strong>TikTok Creators</strong> who want to leverage trending hashtags and optimize their content to boost video visibility and viral potential.</p>
+                        <p><strong>Podcasters</strong> needing SEO-friendly tags and descriptions for their episodes to improve podcast discoverability across platforms.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <svg class="w-6 h-6 text-green-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-1 16H9V7h9v14z"/>
+                        </svg>
+                        Marketing Professionals
+                    </h3>
+                    <div class="space-y-4 text-gray-600">
+                        <p><strong>Digital Marketers</strong> seeking to optimize client content across multiple platforms and improve campaign performance metrics.</p>
+                        <p><strong>SEO Specialists</strong> looking for comprehensive keyword insights and optimization opportunities to improve search rankings.</p>
+                        <p><strong>Social Media Managers</strong> who need to stay current with trending topics and hashtags across various social platforms.</p>
+                        <p><strong>Content Strategists</strong> developing optimized content plans for maximum reach and engagement across digital channels.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <svg class="w-6 h-6 text-purple-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                        </svg>
+                        Writers & Publishers
+                    </h3>
+                    <div class="space-y-4 text-gray-600">
+                        <p><strong>Bloggers</strong> who want to improve their content's search visibility and organize their posts for better user experience.</p>
+                        <p><strong>Content Writers</strong> seeking SEO-friendly tags and keywords for their articles to increase organic traffic and readership.</p>
+                        <p><strong>Online Publishers</strong> looking to categorize and tag content effectively for improved site navigation and SEO performance.</p>
+                        <p><strong>Journalists</strong> who need to optimize their digital articles for maximum reach and social media sharing.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <svg class="w-6 h-6 text-orange-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                        </svg>
+                        Businesses & Entrepreneurs
+                    </h3>
+                    <div class="space-y-4 text-gray-600">
+                        <p><strong>Small Business Owners</strong> managing their own digital marketing efforts and seeking cost-effective optimization solutions.</p>
+                        <p><strong>E-commerce Entrepreneurs</strong> optimizing product descriptions and listings for better search visibility and conversion rates.</p>
+                        <p><strong>Startups</strong> with limited marketing budgets seeking professional-grade tools to compete with larger companies.</p>
+                        <p><strong>Freelancers</strong> looking to enhance their personal brand and online presence to attract more clients and opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">What Our Users Say</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">SM</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-gray-800">Sarah M.</h4>
+                            <p class="text-sm text-gray-600">Fashion Influencer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"<span id="testimonial-domain">LearnForAll's</span> hashtag generator completely transformed my Instagram strategy. My reach has increased by over 200% since I started using their tool. The best part? It's completely free!"</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">JT</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-gray-800">James T.</h4>
+                            <p class="text-sm text-gray-600">Digital Marketing Consultant</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"As a digital marketing consultant, I've tried dozens of SEO tools. <span id="testimonial2-domain">LearnForAll</span> offers the same functionality as premium tools I've paid hundreds for, but completely free. It's now an essential part of my workflow."</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">AK</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-gray-800">Alex K.</h4>
+                            <p class="text-sm text-gray-600">YouTube Creator</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"The YouTube Tags Generator helped me go from 500 to 10,000 subscribers in just three months. My videos are now ranking for keywords I never thought possible. Thank you <span id="testimonial3-domain">LearnForAll</span>!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 gradient-bg text-white text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-6">Ready to Optimize Your Digital Content?</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Join thousands of creators and marketers who are using <span id="cta-domain">LearnForAll's</span> free tools to grow their online presence and reach their target audience more effectively.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a href="#tools" class="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+  Explore Our Tools
+</a>
+<a href="/" class="inline-block border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
+  Bookmark This Site
+</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="text-2xl font-bold" id="footer-logo">LearnForAll</span>
+                    </div>
+                    <p class="text-gray-300">Free digital optimization tools for creators, marketers, and bloggers. Enhance your content and grow your audience with our powerful, easy-to-use tools.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Tools</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="instagram-tiktok-hashtag-tool" class="hover:text-white">Instagram & TikTok Hashtag Tool</a></li>
+                        <li><a href="youtube-tags-generator" class="hover:text-white">YouTube Tags Generator</a></li>
+                        <li><a href="seo-keyword-tags-generator" class="hover:text-white">SEO Keyword Tags Generator</a></li>
+                        <li><a href="trending-tags-finder" class="hover:text-white">Trending Tags Finder</a></li>
+                        <li><a href="blog-post-tags-generator" class="hover:text-white">Blog Post Tags Generator</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="about" class="hover:text-white">About Us</a></li>
+                        <li><a href="contact" class="hover:text-white">Contact</a></li>
+                        <li><a href="privacy" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms" class="hover:text-white">Terms & Conditions</a></li>
+                        <li><a href="disclaimer" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe to get updates on new tools and features.</p>
+                    <form class="flex flex-col sm:flex-row sm:items-stretch sm:space-x-2 space-y-2 sm:space-y-0" onsubmit="event.preventDefault(); window.location.href='/'">
+                        <div class="flex-1">
+                            <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded-md text-gray-800 outline-none" required>
+                        </div>
+                        <div class="sm:w-auto w-full">
+                            <button type="submit" class="w-full sm:w-auto bg-blue-600 px-5 py-2 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 <span id="copyright-domain">LearnForAll</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        function toggleMenu() {
-            const menu = document.querySelector('.menu-links');
-            menu.classList.toggle('show');
+        // Get current domain and update all domain references
+        function updateDomainReferences() {
+            const currentDomain = window.location.hostname.replace('www.', '');
+            const domainElements = [
+                'header-logo', 'welcome-domain', 'content-domain', 'platform-domain', 
+                'mission-domain', 'choose-domain', 'audience-domain', 'testimonial-domain', 
+                'testimonial2-domain', 'testimonial3-domain', 'cta-domain', 'footer-logo', 
+                'copyright-domain'
+            ];
+            
+            domainElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = currentDomain || 'LearnForAll';
+                }
+            });
         }
+
+        // Toggle dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.dropdown');
+            const toolsButton = event.target.closest('button');
+            
+            if (!toolsButton || !toolsButton.textContent.includes('Tools')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize domain references on page load
+        document.addEventListener('DOMContentLoaded', updateDomainReferences);
     </script>
-    <script type='text/javascript' src='//pl27913630.effectivegatecpm.com/07/31/82/0731829bf1df3807cee65610bc339010.js'></script>
-<script async="async" data-cfasync="false" src="//pl27913636.effectivegatecpm.com/8f7342853400315fb53d9ba4480b9d85/invoke.js"></script>
-<div id="container-8f7342853400315fb53d9ba4480b9d85"></div>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '1b1ee57958b46c4116b5b40155e3bc3c',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/1b1ee57958b46c4116b5b40155e3bc3c/invoke.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tolzo.site - Free Digital Tools for Content Creators & Marketers</title>
+    <meta name="description" content="Powerful, free digital marketing tools for content creators. Generate hashtags, SEO keywords, YouTube tags, and trending content ideas - all completely free.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+        .custom-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .dropdown { display: none; }
+        .dropdown.active { display: block; }
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-gray-800" id="header-logo">LearnForAll</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                    <a href="about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
+                    <div class="relative">
+                        <button class="text-gray-700 hover:text-blue-600 font-medium flex items-center" onclick="toggleDropdown()">
+                            Tools
+                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border">
+                            <a href="instagram-tiktok-hashtag-tool" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Instagram & TikTok Hashtag Generator</a>
+                            <a href="youtube-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">YouTube Tags Generator</a>
+                            <a href="seo-keyword-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">SEO Keyword Generator</a>
+                            <a href="trending-tags-finder" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Trending Tags Finder</a>
+                            <a href="blog-post-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Blog Post Tags Generator</a>
+                        </div>
+                    </div>
+                    <a href="contact" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-menu md:hidden mt-4 pb-4">
+                <a href="/" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
+                <a href="about" class="block py-2 text-gray-700 hover:text-blue-600">About</a>
+                <div class="py-2">
+                    <span class="text-gray-700 font-medium">Tools</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="instagram-tiktok-hashtag-tool" class="block text-sm text-gray-600 hover:text-blue-600">Instagram & TikTok Hashtag Generator</a>
+                        <a href="youtube-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">YouTube Tags Generator</a>
+                        <a href="seo-keyword-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">SEO Keyword Generator</a>
+                        <a href="trending-tags-finder" class="block text-sm text-gray-600 hover:text-blue-600">Trending Tags Finder</a>
+                        <a href="blog-post-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">Blog Post Tags Generator</a>
+                    </div>
+                </div>
+                <a href="contact" class="block py-2 text-gray-700 hover:text-blue-600">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">Free Digital Tools for Content Creators & Marketers</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Powerful, easy-to-use tools to optimize your content, increase visibility, and grow your audience — all completely free.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a href="#tools">
+  <button class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+    Explore Tools
+  </button>
+</a>
+<a href="about">
+    <button class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
+        Learn More
+    </button>
+</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Welcome to <span id="welcome-domain">LearnForAll</span></h2>
+                <div class="text-lg text-gray-600 leading-relaxed space-y-6">
+                    <p>In today's rapidly evolving digital ecosystem, content creators, marketers, bloggers, and social media influencers encounter an increasingly complex challenge: making their content shine brightly in an oversaturated online marketplace. Whether your goal is achieving higher search engine rankings, boosting social media engagement rates, expanding your YouTube subscriber base, or driving more traffic to your website, having access to the right optimization tools can be the decisive factor between success and obscurity.</p>
+                    
+                    <p>This is precisely where <span id="content-domain">LearnForAll</span> becomes your indispensable digital companion. We have meticulously developed a comprehensive collection of cutting-edge digital marketing tools specifically engineered to empower you in optimizing your content strategy, maximizing your online visibility, and establishing meaningful connections with your target audience more effectively than ever before. From generating perfectly curated hashtags for Instagram and TikTok to discovering the most impactful tags for your YouTube video content, our sophisticated tools transform the complex world of digital optimization into an accessible and streamlined experience.</p>
+
+                    <p>What truly distinguishes <span id="platform-domain">LearnForAll</span> from countless other platforms in the digital marketing space? Unlike numerous competitors that restrict functionality behind expensive paywalls or offer severely limited free tiers, our entire suite of professional-grade tools remains completely free to use with absolutely no restrictions on functionality. No mandatory user registration processes, no hidden subscription fees, no frustrating usage limitations, and no premium upgrade pressure tactics. We firmly believe that high-quality digital optimization tools should be universally accessible to every creator, regardless of their current budget constraints or level of technical expertise.</p>
+
+                    <p>Our fundamental mission remains elegantly simple yet powerfully impactful: to democratize access to enterprise-level digital optimization tools and empower creators of every scale to achieve their ambitious goals. Whether you're taking your first steps in the digital content creation journey or seeking to elevate your well-established brand to unprecedented heights, <span id="mission-domain">LearnForAll</span> provides all the essential resources, insights, and tools you need to thrive in today's fiercely competitive digital landscape.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="py-16 bg-white">
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Free Digital Tools</h2>
+            <p class="text-xl text-center mb-12 text-gray-600 max-w-3xl mx-auto">Discover our comprehensive collection of powerful tools designed to boost your online presence and simplify your digital marketing efforts across all major platforms.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tool 1 -->
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-pink-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zM12 7c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm5.5-1.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800">Instagram & TikTok Hashtag Generator</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Amplify your social media reach with precisely targeted hashtags. Our advanced AI-powered hashtag generator analyzes your content context and suggests the most effective hashtags to dramatically increase visibility and engagement.</p>
+                    <ul class="text-sm text-gray-500 mb-4 space-y-1">
+                        <li>• Generate niche-specific hashtags</li>
+                        <li>• Perfect mix of popular and niche tags</li>
+                        <li>• Avoid shadowbanned hashtags</li>
+                    </ul>
+<a href="instagram-tiktok-hashtag-tool">
+    <button class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition duration-300">
+        Try Hashtag Generator
+    </button>
+</a>
+                </div>
+
+                <!-- Tool 2 -->
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-red-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800">YouTube Tags Generator</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Optimize your YouTube videos for maximum discoverability. Our intelligent YouTube tag generator creates relevant, high-performing tags that help your videos rank higher in search results.</p>
+                    <ul class="text-sm text-gray-500 mb-4 space-y-1">
+                        <li>• SEO-optimized video tags</li>
+                        <li>• Competitor tag analysis</li>
+                        <li>• Trending YouTube keywords</li>
+                    </ul>
+<a href="youtube-tags-generator" class="inline-block bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300">
+    Try YouTube Tags Generator
+</a>
+                </div>
+
+                <!-- Tool 3 -->
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-green-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800">SEO Keyword Generator</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Enhance your website's search engine ranking with our comprehensive SEO keyword generator. Discover the most effective keywords to drive organic traffic to your content.</p>
+                    <ul class="text-sm text-gray-500 mb-4 space-y-1">
+                        <li>• Long-tail keyword suggestions</li>
+                        <li>• Keyword difficulty analysis</li>
+                        <li>• Search volume indicators</li>
+                    </ul>
+<a href="seo-keyword-tags-generator" class="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">
+    Try SEO Keyword Generator
+</a>
+                </div>
+
+                <!-- Tool 4 -->
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-purple-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800">Trending Tags Finder</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Stay ahead of the curve with our real-time trending tags tool. Discover what's currently popular across different platforms and leverage these trends to boost visibility.</p>
+                    <ul class="text-sm text-gray-500 mb-4 space-y-1">
+                        <li>• Real-time trend monitoring</li>
+                        <li>• Platform-specific trends</li>
+                        <li>• Niche-specific trending topics</li>
+                    </ul>
+<a href="trending-tags-finder" class="inline-block bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition duration-300">
+    Try Trending Tags Finder
+</a>
+                </div>
+
+                <!-- Tool 5 -->
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-blue-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8s0 0 0 0l-6-6zM6 20V4h7v5h5v11H6z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800">Blog Post Tags Generator</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Enhance your blog's organization and discoverability with our intelligent blog post tags generator. Create relevant categories and tags that improve SEO and user experience.</p>
+                    <ul class="text-sm text-gray-500 mb-4 space-y-1">
+                        <li>• Content-relevant tag suggestions</li>
+                        <li>• Category organization</li>
+                        <li>• Internal linking opportunities</li>
+                    </ul>
+<a href="blog-post-tags-generator" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
+    Try Blog Post Tags Generator
+</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Why Choose <span id="choose-domain">LearnForAll</span>?</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">100% Free, Always</h3>
+                    <p class="text-gray-600">All our tools are completely free to use with full functionality. No premium tiers, no hidden fees, and no frustrating limitations.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">No Login Required</h3>
+                    <p class="text-gray-600">Access all our tools instantly without creating an account or sharing your personal information. Just visit and start using.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13 1L13 8L20 8C21.1 8 22 8.9 22 10V20C22 21.1 21.1 22 20 22H4C2.9 22 2 21.1 2 20V4C2 2.9 2.9 2 4 2H11C12.1 2 13 2.9 13 4V1Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Lightning Fast</h3>
+                    <p class="text-gray-600">Our tools are designed for speed and efficiency, delivering instant results so you can optimize your content quickly.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-purple-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Mobile Responsive</h3>
+                    <p class="text-gray-600">Access our tools from any device. Our mobile-responsive design ensures a seamless experience on smartphones and tablets.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Regularly Updated</h3>
+                    <p class="text-gray-600">We continuously update our tools to reflect the latest digital marketing trends and algorithm changes across platforms.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">User-Friendly</h3>
+                    <p class="text-gray-600">Our intuitive interfaces make our tools accessible to everyone, regardless of technical expertise or experience level.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Who Can Benefit from Our Tools?</h2>
+            <p class="text-xl text-center mb-12 text-gray-600 max-w-3xl mx-auto"><span id="audience-domain">LearnForAll</span> serves a diverse community of digital creators and marketers across various platforms and niches.</p>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <svg class="w-6 h-6 text-blue-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.50-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                        </svg>
+                        Content Creators
+                    </h3>
+                    <div class="space-y-4 text-gray-600">
+                        <p><strong>YouTubers</strong> seeking to optimize video tags for better discoverability and achieve higher rankings in search results and recommended sections.</p>
+                        <p><strong>Instagram Influencers</strong> looking for effective hashtags to dramatically increase post reach, engagement rates, and follower growth.</p>
+                        <p><strong>TikTok Creators</strong> who want to leverage trending hashtags and optimize their content to boost video visibility and viral potential.</p>
+                        <p><strong>Podcasters</strong> needing SEO-friendly tags and descriptions for their episodes to improve podcast discoverability across platforms.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <svg class="w-6 h-6 text-green-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-1 16H9V7h9v14z"/>
+                        </svg>
+                        Marketing Professionals
+                    </h3>
+                    <div class="space-y-4 text-gray-600">
+                        <p><strong>Digital Marketers</strong> seeking to optimize client content across multiple platforms and improve campaign performance metrics.</p>
+                        <p><strong>SEO Specialists</strong> looking for comprehensive keyword insights and optimization opportunities to improve search rankings.</p>
+                        <p><strong>Social Media Managers</strong> who need to stay current with trending topics and hashtags across various social platforms.</p>
+                        <p><strong>Content Strategists</strong> developing optimized content plans for maximum reach and engagement across digital channels.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <svg class="w-6 h-6 text-purple-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                        </svg>
+                        Writers & Publishers
+                    </h3>
+                    <div class="space-y-4 text-gray-600">
+                        <p><strong>Bloggers</strong> who want to improve their content's search visibility and organize their posts for better user experience.</p>
+                        <p><strong>Content Writers</strong> seeking SEO-friendly tags and keywords for their articles to increase organic traffic and readership.</p>
+                        <p><strong>Online Publishers</strong> looking to categorize and tag content effectively for improved site navigation and SEO performance.</p>
+                        <p><strong>Journalists</strong> who need to optimize their digital articles for maximum reach and social media sharing.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <svg class="w-6 h-6 text-orange-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                        </svg>
+                        Businesses & Entrepreneurs
+                    </h3>
+                    <div class="space-y-4 text-gray-600">
+                        <p><strong>Small Business Owners</strong> managing their own digital marketing efforts and seeking cost-effective optimization solutions.</p>
+                        <p><strong>E-commerce Entrepreneurs</strong> optimizing product descriptions and listings for better search visibility and conversion rates.</p>
+                        <p><strong>Startups</strong> with limited marketing budgets seeking professional-grade tools to compete with larger companies.</p>
+                        <p><strong>Freelancers</strong> looking to enhance their personal brand and online presence to attract more clients and opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">What Our Users Say</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">SM</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-gray-800">Sarah M.</h4>
+                            <p class="text-sm text-gray-600">Fashion Influencer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"<span id="testimonial-domain">LearnForAll's</span> hashtag generator completely transformed my Instagram strategy. My reach has increased by over 200% since I started using their tool. The best part? It's completely free!"</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">JT</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-gray-800">James T.</h4>
+                            <p class="text-sm text-gray-600">Digital Marketing Consultant</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"As a digital marketing consultant, I've tried dozens of SEO tools. <span id="testimonial2-domain">LearnForAll</span> offers the same functionality as premium tools I've paid hundreds for, but completely free. It's now an essential part of my workflow."</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">AK</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-gray-800">Alex K.</h4>
+                            <p class="text-sm text-gray-600">YouTube Creator</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"The YouTube Tags Generator helped me go from 500 to 10,000 subscribers in just three months. My videos are now ranking for keywords I never thought possible. Thank you <span id="testimonial3-domain">LearnForAll</span>!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 gradient-bg text-white text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-6">Ready to Optimize Your Digital Content?</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Join thousands of creators and marketers who are using <span id="cta-domain">LearnForAll's</span> free tools to grow their online presence and reach their target audience more effectively.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a href="#tools" class="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+  Explore Our Tools
+</a>
+<a href="/" class="inline-block border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
+  Bookmark This Site
+</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="text-2xl font-bold" id="footer-logo">LearnForAll</span>
+                    </div>
+                    <p class="text-gray-300">Free digital optimization tools for creators, marketers, and bloggers. Enhance your content and grow your audience with our powerful, easy-to-use tools.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Tools</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="instagram-tiktok-hashtag-tool" class="hover:text-white">Instagram & TikTok Hashtag Tool</a></li>
+                        <li><a href="youtube-tags-generator" class="hover:text-white">YouTube Tags Generator</a></li>
+                        <li><a href="seo-keyword-tags-generator" class="hover:text-white">SEO Keyword Tags Generator</a></li>
+                        <li><a href="trending-tags-finder" class="hover:text-white">Trending Tags Finder</a></li>
+                        <li><a href="blog-post-tags-generator" class="hover:text-white">Blog Post Tags Generator</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="about" class="hover:text-white">About Us</a></li>
+                        <li><a href="contact" class="hover:text-white">Contact</a></li>
+                        <li><a href="privacy" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms" class="hover:text-white">Terms & Conditions</a></li>
+                        <li><a href="disclaimer" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe to get updates on new tools and features.</p>
+                    <form class="flex flex-col sm:flex-row sm:items-stretch sm:space-x-2 space-y-2 sm:space-y-0" onsubmit="event.preventDefault(); window.location.href='/'">
+                        <div class="flex-1">
+                            <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded-md text-gray-800 outline-none" required>
+                        </div>
+                        <div class="sm:w-auto w-full">
+                            <button type="submit" class="w-full sm:w-auto bg-blue-600 px-5 py-2 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 <span id="copyright-domain">LearnForAll</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Get current domain and update all domain references
+        function updateDomainReferences() {
+            const currentDomain = window.location.hostname.replace('www.', '');
+            const domainElements = [
+                'header-logo', 'welcome-domain', 'content-domain', 'platform-domain', 
+                'mission-domain', 'choose-domain', 'audience-domain', 'testimonial-domain', 
+                'testimonial2-domain', 'testimonial3-domain', 'cta-domain', 'footer-logo', 
+                'copyright-domain'
+            ];
+            
+            domainElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = currentDomain || 'LearnForAll';
+                }
+            });
+        }
+
+        // Toggle dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.dropdown');
+            const toolsButton = event.target.closest('button');
+            
+            if (!toolsButton || !toolsButton.textContent.includes('Tools')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize domain references on page load
+        document.addEventListener('DOMContentLoaded', updateDomainReferences);
+    </script>
 </body>
 </html>
