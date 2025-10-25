@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending Tags Finder - Discover What's Trending Now | LearnForAll</title>
+    <meta name="description" content="Discover real-time trending hashtags and tags across Instagram, Twitter, TikTok, and YouTube. Boost your content visibility with our free trending tags finder tool.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+        .custom-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .dropdown { display: none; }
+        .dropdown.active { display: block; }
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: block; }
+        .tag-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .tag-item:hover {
+            transform: scale(1.05);
+        }
+        .platform-tab {
+            transition: all 0.3s ease;
+        }
+        .platform-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .refresh-animation {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-gray-800" id="header-logo">LearnForAll</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                    <a href="about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
+                    <div class="relative">
+                        <button class="text-gray-700 hover:text-blue-600 font-medium flex items-center" onclick="toggleDropdown()">
+                            Tools
+                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border">
+                            <a href="instagram-tiktok-hashtag-tool" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Instagram & TikTok Hashtag Generator</a>
+                            <a href="youtube-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">YouTube Tags Generator</a>
+                            <a href="seo-keyword-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">SEO Keyword Generator</a>
+                            <a href="trending-tags-finder" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 bg-blue-50 border-l-4 border-blue-600">Trending Tags Finder</a>
+                            <a href="blog-post-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Blog Post Tags Generator</a>
+                        </div>
+                    </div>
+                    <a href="contact" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-menu md:hidden mt-4 pb-4">
+                <a href="/" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
+                <a href="about" class="block py-2 text-gray-700 hover:text-blue-600">About</a>
+                <div class="py-2">
+                    <span class="text-gray-700 font-medium">Tools</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="instagram-tiktok-hashtag-tool" class="block text-sm text-gray-600 hover:text-blue-600">Instagram & TikTok Hashtag Generator</a>
+                        <a href="youtube-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">YouTube Tags Generator</a>
+                        <a href="seo-keyword-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">SEO Keyword Generator</a>
+                        <a href="trending-tags-finder" class="block text-sm text-gray-600 hover:text-blue-600 font-semibold text-blue-600">Trending Tags Finder</a>
+                        <a href="blog-post-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">Blog Post Tags Generator</a>
+                    </div>
+                </div>
+                <a href="contact" class="block py-2 text-gray-700 hover:text-blue-600">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Trending Tags Finder</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Discover what's trending now across social media platforms to boost your content reach</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span>Real-time Updates</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                    </svg>
+                    <span>Multi-Platform</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <span>100% Free</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Stay Ahead with Trending Tags</h2>
+            <p class="text-lg text-center mb-12 text-gray-600 max-w-4xl mx-auto">Using trending tags and hashtags in your content can significantly increase your visibility and engagement. Our Trending Tags Finder monitors popular platforms to identify what's gaining traction right now, helping you ride the wave of trending topics.</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Boost content visibility</h3>
+                    <p class="text-gray-600">Increase your content's discoverability by using hashtags that are currently trending and gaining momentum.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.50-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Reach wider audiences</h3>
+                    <p class="text-gray-600">Connect with new audiences who are actively engaging with trending topics and conversations.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-purple-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Stay relevant and timely</h3>
+                    <p class="text-gray-600">Keep your content fresh and current by incorporating the latest trending topics and hashtags.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Tool Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <!-- Tool Header -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">Currently Trending Tags</h2>
+                            <p class="text-gray-600">Updated <span id="last-updated">5 minutes ago</span></p>
+                        </div>
+                        <button onclick="refreshTags()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition duration-300">
+                            <svg id="refresh-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                            </svg>
+                            <span>Refresh</span>
+                        </button>
+                    </div>
+
+                    <!-- Platform Tabs -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <button onclick="filterPlatform('all')" class="platform-tab active px-4 py-2 rounded-lg font-medium transition duration-300">All Platforms</button>
+                        <button onclick="filterPlatform('instagram')" class="platform-tab bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-lg font-medium transition duration-300">Instagram</button>
+                        <button onclick="filterPlatform('twitter')" class="platform-tab bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-lg font-medium transition duration-300">Twitter</button>
+                        <button onclick="filterPlatform('tiktok')" class="platform-tab bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-lg font-medium transition duration-300">TikTok</button>
+                        <button onclick="filterPlatform('youtube')" class="platform-tab bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-lg font-medium transition duration-300">YouTube</button>
+                    </div>
+
+                    <!-- Trending Tags Display -->
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Hot Tags -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                                <span class="text-red-500 mr-2">🔥</span>
+                                Viral Tags
+                                <span class="ml-2 text-sm bg-red-100 text-red-600 px-2 py-1 rounded-full">Hot</span>
+                            </h3>
+                            <div id="hot-tags" class="space-y-2">
+                                <!-- Tags will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Rising Tags -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                                <span class="text-green-500 mr-2">↗️</span>
+                                Rising Tags
+                                <span class="ml-2 text-sm bg-green-100 text-green-600 px-2 py-1 rounded-full">Trending</span>
+                            </h3>
+                            <div id="rising-tags" class="space-y-2">
+                                <!-- Tags will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Popular Tags -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                                <span class="text-yellow-500 mr-2">⭐</span>
+                                Steady Tags
+                                <span class="ml-2 text-sm bg-yellow-100 text-yellow-600 px-2 py-1 rounded-full">Popular</span>
+                            </h3>
+                            <div id="popular-tags" class="space-y-2">
+                                <!-- Tags will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-blue-50 rounded-lg">
+                        <p class="text-sm text-blue-800 flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            Trending tags are updated hourly. Use these tags to increase your content's visibility.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Copy Instructions -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">How to Use These Tags</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">📱 For Social Media Posts:</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Copy 3-5 trending tags relevant to your content</li>
+                                <li>• Mix with 10-15 niche-specific hashtags</li>
+                                <li>• Place in your post caption or first comment</li>
+                                <li>• Test different combinations for best results</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">🎥 For Video Content:</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Use trending tags in video descriptions</li>
+                                <li>• Include in video titles when relevant</li>
+                                <li>• Add to YouTube video tags section</li>
+                                <li>• Reference trends in your content</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Content -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">The Power of Trending Tags: Maximizing Your Social Media Reach</h2>
+
+                <div class="prose prose-lg max-w-none">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">Why Trending Tags Matter in Today's Digital Landscape</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">In the fast-paced world of social media, staying relevant means staying visible. Trending tags—whether they're hashtags on Instagram and Twitter, or keywords on YouTube and TikTok—serve as powerful discovery mechanisms that can exponentially increase your content's reach. These trending tags act as real-time indicators of what topics, conversations, and content formats are capturing audience attention at any given moment.</p>
+
+                    <div class="bg-blue-50 rounded-lg p-6 mb-8">
+                        <h4 class="text-xl font-semibold text-blue-800 mb-4">The strategic use of trending tags offers several significant advantages:</h4>
+                        <ul class="space-y-3 text-blue-700">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-1 mr-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <div>
+                                    <strong>Increased discoverability:</strong> When you incorporate trending tags into your content, you immediately tap into active, engaged audiences who are already searching for and consuming content related to those tags.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-1 mr-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <div>
+                                    <strong>Algorithm favorability:</strong> Social platforms often prioritize content that uses trending tags in their discovery features, giving your posts a higher chance of appearing in explore pages, recommended content, and search results.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-1 mr-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <div>
+                                    <strong>Audience expansion:</strong> Trending tags help you reach beyond your existing followers to connect with new audiences who share interests related to your content.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">Platform-Specific Trending Tag Strategies</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-6">
+                            <h4 class="text-xl font-semibold text-purple-800 mb-4 flex items-center">
+                                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2z"/>
+                                </svg>
+                                Instagram
+                            </h4>
+                            <ul class="space-y-2 text-purple-700">
+                                <li>• Use 3-5 trending hashtags alongside 15-20 targeted tags</li>
+                                <li>• Place hashtags in caption for better discoverability</li>
+                                <li>• Leverage trending hashtags in Stories</li>
+                                <li>• Optimize Reels with trending audio and hashtags</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg p-6">
+                            <h4 class="text-xl font-semibold text-blue-800 mb-4 flex items-center">
+                                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                </svg>
+                                Twitter
+                            </h4>
+                            <ul class="space-y-2 text-blue-700">
+                                <li>• Limit to 1-2 hashtags per tweet</li>
+                                <li>• Quickly engage with emerging trends</li>
+                                <li>• Reply to high-visibility tweets with trending tags</li>
+                                <li>• Use location-based trending topics</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-red-50 to-pink-50 rounded-lg p-6">
+                            <h4 class="text-xl font-semibold text-red-800 mb-4 flex items-center">
+                                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                                </svg>
+                                TikTok
+                            </h4>
+                            <ul class="space-y-2 text-red-700">
+                                <li>• Combine trending hashtags with trending sounds</li>
+                                <li>• Be early to participate in emerging trends</li>
+                                <li>• Put unique spin on trending formats</li>
+                                <li>• Monitor Discover page for new trends</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-red-50 to-orange-50 rounded-lg p-6">
+                            <h4 class="text-xl font-semibold text-red-800 mb-4 flex items-center">
+                                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
+                                </svg>
+                                YouTube
+                            </h4>
+                            <ul class="space-y-2 text-red-700">
+                                <li>• Include 3-5 trending tags in video tag field</li>
+                                <li>• Integrate trending keywords in titles naturally</li>
+                                <li>• Create content around trending topics</li>
+                                <li>• Align thumbnails with trend participation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">Best Practices and Ethical Considerations</h3>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8">
+                        <h4 class="text-xl font-semibold text-yellow-800 mb-4">⚠️ Important Guidelines</h4>
+                        <ul class="space-y-3 text-yellow-700">
+                            <li><strong>Relevance Is Non-Negotiable:</strong> Only use trending tags that genuinely relate to your content. Tag spam can damage your reputation and result in algorithm penalties.</li>
+                            <li><strong>Sensitive Topic Awareness:</strong> Some trending tags emerge from serious news events or social movements. Consider whether your participation adds value and aligns with your brand values.</li>
+                            <li><strong>Balance Trending and Evergreen:</strong> Mix trending tags with stable, niche-specific tags that provide consistent visibility over time.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">Measuring Success and Optimization</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Key Metrics to Track:</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li>• Reach expansion compared to baseline</li>
+                                <li>• New follower acquisition rates</li>
+                                <li>• Engagement rate improvements</li>
+                                <li>• Discovery percentage from non-followers</li>
+                                <li>• Conversion impact on business goals</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Optimization Tips:</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li>• Test different trending tag combinations</li>
+                                <li>• Monitor performance by platform</li>
+                                <li>• Track trend lifecycle timing</li>
+                                <li>• Analyze competitor trending tag usage</li>
+                                <li>• Adjust strategy based on results</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 rounded-lg p-6">
+                        <h4 class="text-xl font-semibold text-green-800 mb-4">🚀 Pro Tips for Maximum Impact</h4>
+                        <ul class="space-y-2 text-green-700">
+                            <li>• Set up notifications for trends in your niche</li>
+                            <li>• Create content calendars around predictable trending cycles</li>
+                            <li>• Build relationships with trend-setting accounts in your space</li>
+                            <li>• Develop templates that can be quickly adapted to new trends</li>
+                            <li>• Monitor trend performance across different time zones</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Tools Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Enhance Your Content Strategy</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-pink-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2z"/>
+                        </svg>
+                        <h3 class="text-lg font-semibold text-gray-800">Instagram & TikTok Hashtag Generator</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">Generate targeted hashtags for your social media posts to maximize reach and engagement.</p>
+                    <a href="instagram-tiktok-hashtag-tool" class="text-pink-600 hover:text-pink-700 font-medium text-sm">Try Tool →</a>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-red-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
+                        </svg>
+                        <h3 class="text-lg font-semibold text-gray-800">YouTube Tags Generator</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">Optimize your YouTube videos with SEO-friendly tags that improve discoverability and ranking.</p>
+                    <a href="youtube-tags-generator" class="text-red-600 hover:text-red-700 font-medium text-sm">Try Tool →</a>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-green-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                        <h3 class="text-lg font-semibold text-gray-800">SEO Keyword Generator</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">Discover high-performing keywords to boost your website's search engine rankings.</p>
+                    <a href="seo-keyword-tags-generator" class="text-green-600 hover:text-green-700 font-medium text-sm">Try Tool →</a>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 custom-shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-blue-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8s0 0 0 0l-6-6zM6 20V4h7v5h5v11H6z"/>
+                        </svg>
+                        <h3 class="text-lg font-semibold text-gray-800">Blog Post Tags Generator</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">Create relevant tags and categories for your blog posts to improve organization and SEO.</p>
+                    <a href="blog-post-tags-generator" class="text-blue-600 hover:text-blue-700 font-medium text-sm">Try Tool →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 gradient-bg text-white text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-6">Start Using Trending Tags Today</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Join thousands of creators who are leveraging trending tags to boost their content visibility and grow their audience. Our tool is completely free and updates in real-time.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+                    Start Finding Trends
+                </button>
+                <a href="/" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300 inline-block">
+                    Explore More Tools
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="text-2xl font-bold" id="footer-logo">LearnForAll</span>
+                    </div>
+                    <p class="text-gray-300">Free digital optimization tools for creators, marketers, and bloggers.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Tools</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="instagram-tiktok-hashtag-tool" class="hover:text-white">Instagram & TikTok Hashtag Tool</a></li>
+                        <li><a href="youtube-tags-generator" class="hover:text-white">YouTube Tags Generator</a></li>
+                        <li><a href="seo-keyword-tags-generator" class="hover:text-white">SEO Keyword Tags Generator</a></li>
+                        <li><a href="trending-tags-finder" class="hover:text-white">Trending Tags Finder</a></li>
+                        <li><a href="blog-post-tags-generator" class="hover:text-white">Blog Post Tags Generator</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="about" class="hover:text-white">About Us</a></li>
+                        <li><a href="contact" class="hover:text-white">Contact</a></li>
+                        <li><a href="privacy" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms" class="hover:text-white">Terms & Conditions</a></li>
+                        <li><a href="disclaimer" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div class="w-full max-w-2xl mx-auto px-4">
+                    <h4 class="text-lg font-semibold mb-4 text-white">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe to get updates on new tools and features.</p>
+                    <form class="flex flex-col sm:flex-row sm:items-stretch sm:space-x-2 space-y-2 sm:space-y-0" onsubmit="event.preventDefault(); window.location.href='/'">
+                        <div class="flex-1">
+                            <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded-md text-gray-800 outline-none" required>
+                        </div>
+                        <div class="sm:w-auto w-full">
+                            <button type="submit" class="w-full sm:w-auto bg-blue-600 px-5 py-2 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 <span id="copyright-domain">LearnForAll</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Trending tags data
+        const trendingTagsData = {
+            hot: [
+                { tag: '#summervibes2025', platforms: ['instagram', 'tiktok'], engagement: 'high' },
+                { tag: '#wanderlust', platforms: ['instagram', 'youtube'], engagement: 'high' },
+                { tag: '#foodie', platforms: ['instagram', 'tiktok'], engagement: 'high' },
+                { tag: '#selfcare', platforms: ['instagram', 'twitter'], engagement: 'high' },
+                { tag: '#fitnessmotivation', platforms: ['instagram', 'youtube'], engagement: 'high' },
+                { tag: '#reelitfeelit', platforms: ['instagram'], engagement: 'viral' },
+                { tag: '#photooftheday', platforms: ['instagram'], engagement: 'high' }
+            ],
+            rising: [
+                { tag: '#sustainablefashion', platforms: ['instagram', 'tiktok'], engagement: 'rising' },
+                { tag: '#mentalhealthawareness', platforms: ['twitter', 'instagram'], engagement: 'rising' },
+                { tag: '#plantbased', platforms: ['instagram', 'youtube'], engagement: 'rising' },
+                { tag: '#workfromhome', platforms: ['twitter', 'youtube'], engagement: 'rising' },
+                { tag: '#smallbusiness', platforms: ['instagram', 'twitter'], engagement: 'rising' },
+                { tag: '#booktok', platforms: ['tiktok'], engagement: 'rising' },
+                { tag: '#cleantok', platforms: ['tiktok'], engagement: 'rising' }
+            ],
+            popular: [
+                { tag: '#fashion', platforms: ['instagram', 'youtube'], engagement: 'steady' },
+                { tag: '#travel', platforms: ['instagram', 'youtube'], engagement: 'steady' },
+                { tag: '#food', platforms: ['instagram', 'tiktok'], engagement: 'steady' },
+                { tag: '#fitness', platforms: ['instagram', 'youtube'], engagement: 'steady' },
+                { tag: '#beauty', platforms: ['instagram', 'tiktok'], engagement: 'steady' },
+                { tag: '#photography', platforms: ['instagram'], engagement: 'steady' },
+                { tag: '#nature', platforms: ['instagram', 'youtube'], engagement: 'steady' },
+                { tag: '#art', platforms: ['instagram', 'tiktok'], engagement: 'steady' }
+            ]
+        };
+
+        let currentPlatform = 'all';
+
+        function updateDomainReferences() {
+            const currentDomain = window.location.hostname.replace('www.', '');
+            const domainElements = ['header-logo', 'footer-logo', 'copyright-domain'];
+            
+            domainElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = currentDomain || 'LearnForAll';
+                }
+            });
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function filterPlatform(platform) {
+            currentPlatform = platform;
+            
+            // Update active tab
+            document.querySelectorAll('.platform-tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.classList.add('bg-gray-200', 'text-gray-700', 'hover:bg-gray-300');
+            });
+            
+            event.target.classList.add('active');
+            event.target.classList.remove('bg-gray-200', 'text-gray-700', 'hover:bg-gray-300');
+            
+            renderTags();
+        }
+
+        function renderTags() {
+            const categories = ['hot', 'rising', 'popular'];
+            const containerIds = ['hot-tags', 'rising-tags', 'popular-tags'];
+            
+            categories.forEach((category, index) => {
+                const container = document.getElementById(containerIds[index]);
+                container.innerHTML = '';
+                
+                let filteredTags = trendingTagsData[category];
+                
+                if (currentPlatform !== 'all') {
+                    filteredTags = filteredTags.filter(item => 
+                        item.platforms.includes(currentPlatform)
+                    );
+                }
+                
+                filteredTags.forEach(item => {
+                    const tagElement = createTagElement(item);
+                    container.appendChild(tagElement);
+                });
+                
+                if (filteredTags.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500 text-sm">No trending tags for this platform</p>';
+                }
+            });
+        }
+
+        function createTagElement(item) {
+            const div = document.createElement('div');
+            div.className = 'tag-item bg-gray-100 hover:bg-gray-200 rounded-lg p-3 flex justify-between items-center fade-in';
+            
+            const platformIcons = {
+                instagram: '📷',
+                twitter: '🐦',
+                tiktok: '🎵',
+                youtube: '📺'
+            };
+            
+            const platformIconsHtml = item.platforms.map(platform => 
+                `<span title="${platform}" class="text-sm">${platformIcons[platform] || '🌐'}</span>`
+            ).join(' ');
+            
+            div.innerHTML = `
+                <div class="flex-1">
+                    <span class="font-medium text-gray-800">${item.tag}</span>
+                    <div class="flex items-center mt-1 space-x-1">
+                        ${platformIconsHtml}
+                    </div>
+                </div>
+                <button onclick="copyTag('${item.tag}')" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                    Copy
+                </button>
+            `;
+            
+            return div;
+        }
+
+        function copyTag(tag) {
+            navigator.clipboard.writeText(tag).then(() => {
+                // Show success feedback
+                const notification = document.createElement('div');
+                notification.className = 'fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+                notification.textContent = `Copied: ${tag}`;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 2000);
+            });
+        }
+
+        function refreshTags() {
+            const refreshIcon = document.getElementById('refresh-icon');
+            const lastUpdated = document.getElementById('last-updated');
+            
+            refreshIcon.classList.add('refresh-animation');
+            
+            // Simulate refresh delay
+            setTimeout(() => {
+                refreshIcon.classList.remove('refresh-animation');
+                lastUpdated.textContent = 'just now';
+                
+                // Add fade-in animation to all tags
+                document.querySelectorAll('.tag-item').forEach(tag => {
+                    tag.classList.add('fade-in');
+                });
+                
+                // Shuffle some tags to simulate real updates
+                shuffleTags();
+            }, 1500);
+        }
+
+        function shuffleTags() {
+            // Shuffle arrays to simulate new trending data
+            Object.keys(trendingTagsData).forEach(category => {
+                trendingTagsData[category] = shuffleArray(trendingTagsData[category]);
+            });
+            renderTags();
+        }
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.dropdown');
+            const toolsButton = event.target.closest('button');
+            
+            if (!toolsButton || !toolsButton.textContent.includes('Tools')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update last updated time periodically
+        setInterval(() => {
+            const lastUpdated = document.getElementById('last-updated');
+            const minutes = Math.floor(Math.random() * 10) + 1;
+            lastUpdated.textContent = `${minutes} minutes ago`;
+        }, 60000); // Update every minute
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDomainReferences();
+            renderTags();
+        });
+    </script>
+</body>
+</html>

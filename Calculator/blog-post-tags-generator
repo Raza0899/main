@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post Tags Generator - Create Perfect Tags for Your Blog Posts</title>
+    <meta name="description" content="Generate relevant blog tags in seconds. Improve your blog's SEO, organization, and discoverability with our free blog post tags generator. No signup required.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+        .custom-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .dropdown { display: none; }
+        .dropdown.active { display: block; }
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: block; }
+        .tag-item {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .tag-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .tag-category {
+            border-left: 4px solid;
+            padding-left: 16px;
+            margin-bottom: 20px;
+        }
+        .primary-tags { border-color: #ef4444; }
+        .secondary-tags { border-color: #f59e0b; }
+        .niche-tags { border-color: #8b5cf6; }
+        .seo-tags { border-color: #10b981; }
+        .loading-spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-gray-800" id="header-logo">LearnForAll</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                    <a href="about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
+                    <div class="relative">
+                        <button class="text-gray-700 hover:text-blue-600 font-medium flex items-center" onclick="toggleDropdown()">
+                            Tools
+                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border">
+                            <a href="instagram-tiktok-hashtag-tool" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Instagram & TikTok Hashtag Generator</a>
+                            <a href="youtube-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">YouTube Tags Generator</a>
+                            <a href="seo-keyword-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">SEO Keyword Generator</a>
+                            <a href="trending-tags-finder" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Trending Tags Finder</a>
+                            <a href="blog-post-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 bg-blue-50 border-l-4 border-blue-500">Blog Post Tags Generator</a>
+                        </div>
+                    </div>
+                    <a href="contact" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-menu md:hidden mt-4 pb-4">
+                <a href="/" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
+                <a href="about" class="block py-2 text-gray-700 hover:text-blue-600">About</a>
+                <div class="py-2">
+                    <span class="text-gray-700 font-medium">Tools</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="instagram-tiktok-hashtag-tool" class="block text-sm text-gray-600 hover:text-blue-600">Instagram & TikTok Hashtag Generator</a>
+                        <a href="youtube-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">YouTube Tags Generator</a>
+                        <a href="seo-keyword-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">SEO Keyword Generator</a>
+                        <a href="trending-tags-finder" class="block text-sm text-gray-600 hover:text-blue-600">Trending Tags Finder</a>
+                        <a href="blog-post-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600 font-semibold text-blue-600">Blog Post Tags Generator</a>
+                    </div>
+                </div>
+                <a href="contact" class="block py-2 text-gray-700 hover:text-blue-600">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Blog Post Tags Generator</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Create perfect tags for your blog posts to improve discoverability and reach. Generate relevant, SEO-optimized tags in seconds.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="scrollToGenerator()" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+                    Start Generating Tags
+                </button>
+                <button onclick="scrollToGuide()" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
+                    Learn About Tags
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tag Generator Tool -->
+    <section id="generator" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-4 text-gray-800">Generate Relevant Blog Tags in Seconds</h2>
+                    <p class="text-lg text-gray-600">Effective blog tags help categorize your content, improve SEO, and make it easier for readers to find related articles. Our Blog Post Tags Generator analyzes your post title or description to suggest relevant, high-performing tags that will boost your content's visibility.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="text-center">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Improve Discoverability</h3>
+                        <p class="text-gray-600 text-sm">Help readers find your content through relevant tags and improved search visibility.</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Better Content Organization</h3>
+                        <p class="text-gray-600 text-sm">Organize your blog posts systematically for easier navigation and content management.</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Connect with Your Audience</h3>
+                        <p class="text-gray-600 text-sm">Use tags that resonate with your target audience and their search behavior.</p>
+                    </div>
+                </div>
+
+                <!-- Generator Form -->
+                <div class="bg-gray-50 rounded-lg p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6 text-center text-gray-800">Create Your Blog Tags</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="blogInput" class="block text-sm font-medium text-gray-700 mb-2">Enter your blog post title or a brief description:</label>
+                            <textarea 
+                                id="blogInput" 
+                                rows="4" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                                placeholder="e.g., 10 Essential Tips for Remote Work Productivity - A comprehensive guide covering time management, workspace setup, communication tools, and work-life balance strategies for remote professionals"
+                            ></textarea>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="categorySelect" class="block text-sm font-medium text-gray-700 mb-2">Blog Category (Optional):</label>
+                                <select id="categorySelect" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="">Select a category...</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="business">Business</option>
+                                    <option value="lifestyle">Lifestyle</option>
+                                    <option value="health">Health & Wellness</option>
+                                    <option value="education">Education</option>
+                                    <option value="travel">Travel</option>
+                                    <option value="food">Food & Cooking</option>
+                                    <option value="finance">Finance</option>
+                                    <option value="marketing">Marketing</option>
+                                    <option value="productivity">Productivity</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="audienceSelect" class="block text-sm font-medium text-gray-700 mb-2">Target Audience (Optional):</label>
+                                <select id="audienceSelect" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="">Select audience...</option>
+                                    <option value="beginners">Beginners</option>
+                                    <option value="professionals">Professionals</option>
+                                    <option value="entrepreneurs">Entrepreneurs</option>
+                                    <option value="students">Students</option>
+                                    <option value="parents">Parents</option>
+                                    <option value="seniors">Seniors</option>
+                                    <option value="general">General Audience</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button 
+                                id="generateBtn" 
+                                onclick="generateTags()" 
+                                class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 inline-flex items-center"
+                            >
+                                <span id="generateText">Generate Tags</span>
+                                <div id="loadingSpinner" class="loading-spinner ml-2" style="display: none;"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div id="resultsSection" class="hidden">
+                    <h3 class="text-2xl font-bold mb-6 text-center text-gray-800">Generated Tags</h3>
+                    
+                    <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="tag-category primary-tags">
+                                <h4 class="text-lg font-semibold text-red-600 mb-3">Primary Tags</h4>
+                                <p class="text-sm text-gray-600 mb-3">Main topic tags that describe your content's core focus</p>
+                                <div id="primaryTags"></div>
+                            </div>
+
+                            <div class="tag-category secondary-tags">
+                                <h4 class="text-lg font-semibold text-amber-600 mb-3">Secondary Tags</h4>
+                                <p class="text-sm text-gray-600 mb-3">Supporting tags that add context and detail</p>
+                                <div id="secondaryTags"></div>
+                            </div>
+
+                            <div class="tag-category niche-tags">
+                                <h4 class="text-lg font-semibold text-purple-600 mb-3">Niche Tags</h4>
+                                <p class="text-sm text-gray-600 mb-3">Specific tags that target particular audiences or subtopics</p>
+                                <div id="nicheTags"></div>
+                            </div>
+
+                            <div class="tag-category seo-tags">
+                                <h4 class="text-lg font-semibold text-green-600 mb-3">SEO Tags</h4>
+                                <p class="text-sm text-gray-600 mb-3">Search-optimized tags to improve discoverability</p>
+                                <div id="seoTags"></div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-6 border-t border-gray-200">
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <button onclick="copyAllTags()" class="bg-green-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-700 transition duration-300">
+                                    Copy All Tags
+                                </button>
+                                <button onclick="generateTags()" class="border border-blue-600 text-blue-600 px-6 py-2 rounded-lg font-medium hover:bg-blue-50 transition duration-300">
+                                    Generate New Tags
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Content -->
+    <section id="guide" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">The Ultimate Guide to Blog Post Tags: Maximize Your Content's Impact</h2>
+
+                <!-- What Are Blog Tags -->
+                <div class="bg-white rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Understanding Blog Tags: Your Content's Navigation System</h3>
+                    <p class="text-gray-600 mb-4">Blog tags function as the organizational backbone of your content strategy, serving as digital labels that categorize and connect related articles within your blog ecosystem. Unlike broad categories that represent major content pillars, tags operate as granular descriptors that capture specific elements, themes, and topics within individual posts.</p>
+                    <p class="text-gray-600 mb-4">Think of tags as the sophisticated filing system for your digital library. While categories might represent different sections like "Technology" or "Lifestyle," tags dive deeper to identify specific aspects such as "remote work tools," "productivity apps," or "work-life balance strategies." This hierarchical approach creates multiple pathways for readers to discover your content and helps search engines understand the context and relevance of your articles.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mt-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">Categories</h4>
+                            <ul class="text-sm text-blue-700 space-y-1">
+                                <li>• Broad, general topics</li>
+                                <li>• Limited in number (5-10 total)</li>
+                                <li>• Hierarchical structure</li>
+                                <li>• Represent main content pillars</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-2">Tags</h4>
+                            <ul class="text-sm text-green-700 space-y-1">
+                                <li>• Specific, detailed descriptors</li>
+                                <li>• Can have many (use judiciously)</li>
+                                <li>• Flat, non-hierarchical structure</li>
+                                <li>• Represent specific content elements</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Strategic Benefits -->
+                <div class="bg-white rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Strategic Benefits of Effective Blog Tagging</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
+                                <svg class="w-5 h-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                Enhanced User Experience
+                            </h4>
+                            <p class="text-gray-600 text-sm mb-4">Tags create intuitive navigation pathways that guide readers to related content, significantly increasing page views, session duration, and overall engagement metrics. When readers finish an article, relevant tags provide immediate suggestions for their next reading adventure.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
+                                <svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                </svg>
+                                SEO Performance Boost
+                            </h4>
+                            <p class="text-gray-600 text-sm mb-4">Well-implemented tags contribute to your site's internal linking structure, help establish topical authority, and create opportunities for ranking on long-tail keywords that individual posts might not target directly.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
+                                <svg class="w-5 h-5 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                                </svg>
+                                Content Strategy Insights
+                            </h4>
+                            <p class="text-gray-600 text-sm mb-4">Tag performance analytics reveal which topics resonate most with your audience, informing future content creation decisions and helping identify content gaps or opportunities for expansion.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
+                                <svg class="w-5 h-5 text-red-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.50-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                                </svg>
+                                Social Media Integration
+                            </h4>
+                            <p class="text-gray-600 text-sm mb-4">Tags can inform your social media strategy by identifying popular content themes and providing structured approaches to content curation and promotion across platforms.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Best Practices -->
+                <div class="bg-white rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Proven Best Practices for Blog Tag Implementation</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-blue-500 pl-6">
+                            <h4 class="text-lg font-semibold mb-2 text-gray-800">1. Maintain Strategic Specificity</h4>
+                            <p class="text-gray-600 mb-2">Choose tags that strike the perfect balance between being specific enough to be useful and broad enough to group multiple related posts. Avoid overly generic tags like "tips" or "advice" that could apply to virtually any content.</p>
+                            <div class="bg-gray-50 p-3 rounded text-sm">
+                                <strong class="text-red-600">Avoid:</strong> "tips", "advice", "helpful" <br>
+                                <strong class="text-green-600">Use:</strong> "email marketing strategies", "content planning", "productivity tools"
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-green-500 pl-6">
+                            <h4 class="text-lg font-semibold mb-2 text-gray-800">2. Implement Consistent Formatting Standards</h4>
+                            <p class="text-gray-600 mb-2">Establish and maintain consistent formatting rules across your entire tagging system. Decide on capitalization, plural vs. singular forms, and separator characters (hyphens vs. spaces) and stick to these standards religiously.</p>
+                            <div class="bg-gray-50 p-3 rounded text-sm">
+                                <strong>Example Standards:</strong> Lowercase, singular forms, hyphens for multi-word tags<br>
+                                "social-media-marketing", "content-strategy", "seo-optimization"
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-purple-500 pl-6">
+                            <h4 class="text-lg font-semibold mb-2 text-gray-800">3. Optimize Tag Quantity Per Post</h4>
+                            <p class="text-gray-600 mb-2">Research consistently shows that 5-8 tags per post represent the sweet spot for optimal organization without tag dilution. Each tag should add genuine value in terms of categorization or discoverability.</p>
+                            <div class="bg-gray-50 p-3 rounded text-sm">
+                                <strong>Recommended Distribution:</strong><br>
+                                • 2-3 primary topic tags<br>
+                                • 2-3 secondary/supporting tags<br>
+                                • 1-2 audience-specific or format tags
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-yellow-500 pl-6">
+                            <h4 class="text-lg font-semibold mb-2 text-gray-800">4. Regular Tag System Audits</h4>
+                            <p class="text-gray-600 mb-2">Conduct quarterly reviews of your tagging system to identify duplicate tags, merge similar terms, and eliminate underperforming tags. This maintenance ensures your system remains clean and effective as your content library grows.</p>
+                            <div class="bg-gray-50 p-3 rounded text-sm">
+                                <strong>Audit Checklist:</strong><br>
+                                • Merge similar tags (e.g., "social media" + "social-media")<br>
+                                • Remove tags with only 1-2 posts<br>
+                                • Identify high-performing tags for content expansion<br>
+                                • Update tag descriptions and organization
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Strategies -->
+                <div class="bg-white rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Advanced Tagging Strategies for Maximum Impact</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800">Semantic Tag Clustering</h4>
+                            <p class="text-gray-600 text-sm mb-3">Group related tags into semantic clusters that represent different aspects of your content. This approach helps create more sophisticated internal linking opportunities and better user experience.</p>
+                            <div class="bg-blue-50 p-3 rounded text-sm">
+                                <strong>Example Cluster:</strong><br>
+                                Topic: "digital marketing"<br>
+                                Tools: "marketing-automation", "analytics"<br>
+                                Audience: "small-business", "entrepreneurs"<br>
+                                Strategy: "content-marketing", "seo"
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800">Temporal Tag Strategy</h4>
+                            <p class="text-gray-600 text-sm mb-3">Incorporate time-sensitive tags that can help resurface relevant content during specific seasons, events, or trending periods throughout the year.</p>
+                            <div class="bg-green-50 p-3 rounded text-sm">
+                                <strong>Examples:</strong><br>
+                                • "holiday-marketing"<br>
+                                • "back-to-school"<br>
+                                • "year-end-planning"<br>
+                                • "summer-strategies"
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800">Intent-Based Tagging</h4>
+                            <p class="text-gray-600 text-sm mb-3">Create tags that reflect user intent and search behavior, making it easier for readers to find content that matches their specific needs and goals.</p>
+                            <div class="bg-purple-50 p-3 rounded text-sm">
+                                <strong>Intent Categories:</strong><br>
+                                • "how-to-guides"<br>
+                                • "beginner-friendly"<br>
+                                • "advanced-techniques"<br>
+                                • "quick-tips"
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800">Cross-Platform Tag Harmony</h4>
+                            <p class="text-gray-600 text-sm mb-3">Align your blog tags with hashtags and keywords used across your social media platforms to create consistent messaging and improved cross-platform content discovery.</p>
+                            <div class="bg-yellow-50 p-3 rounded text-sm">
+                                <strong>Platform Alignment:</strong><br>
+                                Blog: "content-marketing"<br>
+                                Instagram: #contentmarketing<br>
+                                Twitter: #ContentMarketing<br>
+                                LinkedIn: Content Marketing
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Mistakes -->
+                <div class="bg-white rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Common Tag Implementation Mistakes to Avoid</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Tag Stuffing and Over-Tagging</h4>
+                                <p class="text-gray-600 text-sm">Using excessive numbers of tags or irrelevant tags to try to capture more traffic. This dilutes the effectiveness of your tagging system and can negatively impact SEO.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Inconsistent Tag Formatting</h4>
+                                <p class="text-gray-600 text-sm">Using different formats for similar concepts (e.g., "SEO", "seo", "Search Engine Optimization") creates fragmentation and reduces the effectiveness of your organizational system.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Creating Single-Use Tags</h4>
+                                <p class="text-gray-600 text-sm">Developing highly specific tags that will only ever be used on one post. These "orphan tags" provide no organizational value and can clutter your tag system.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Neglecting Tag Performance Analysis</h4>
+                                <p class="text-gray-600 text-sm">Failing to monitor which tags drive traffic, engagement, and conversions means missing opportunities to optimize your content strategy and improve user experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How Our Generator Works -->
+                <div class="bg-white rounded-lg p-8 custom-shadow">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">How Our Blog Post Tags Generator Works</h3>
+                    <p class="text-gray-600 mb-6">Our advanced Blog Post Tags Generator employs sophisticated natural language processing algorithms to analyze your content and generate highly relevant, strategically valuable tags that enhance your blog's organization and discoverability.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
+                                <svg class="w-5 h-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                                </svg>
+                                Intelligent Content Analysis
+                            </h4>
+                            <p class="text-gray-600 text-sm">Our system performs deep semantic analysis of your blog post title and description, identifying key concepts, entities, and themes that form the foundation of relevant tag suggestions.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
+                                <svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                Multi-Category Tag Generation
+                            </h4>
+                            <p class="text-gray-600 text-sm">We organize suggested tags into four strategic categories - Primary, Secondary, Niche, and SEO tags - ensuring comprehensive coverage that serves both readers and search engines.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
+                                <svg class="w-5 h-5 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-1 16H9V7h9v14z"/>
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800">Context-Aware Suggestions</h4>
+                            <p class="text-gray-600 text-sm">When you provide additional context through category and audience selections, our algorithm refines suggestions to match your specific niche and target reader demographics.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
+                                <svg class="w-5 h-5 text-red-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                                </svg>
+                            </h4>
+                            <h4 class="text-lg font-semibold mb-3 text-gray-800">Real-Time Trend Integration</h4>
+                            <p class="text-gray-600 text-sm">Our system incorporates current content trends and search patterns to suggest tags that have growing relevance and potential for improved discoverability.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="text-2xl font-bold" id="footer-logo">LearnForAll</span>
+                    </div>
+                    <p class="text-gray-300">Explore top free digital optimization tools for creators, bloggers, and marketers. Improve SEO, boost content performance, and grow your online presence effortlessly. Perfect for saving time, increasing traffic, and maximizing results.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Tools</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="instagram-tiktok-hashtag-tool" class="hover:text-white">Instagram & TikTok Hashtag Tool</a></li>
+                        <li><a href="youtube-tags-generator" class="hover:text-white">YouTube Tags Generator</a></li>
+                        <li><a href="seo-keyword-tags-generator" class="hover:text-white">SEO Keyword Tags Generator</a></li>
+                        <li><a href="trending-tags-finder" class="hover:text-white">Trending Tags Finder</a></li>
+                        <li><a href="blog-post-tags-generator" class="hover:text-white font-semibold">Blog Post Tags Generator</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="about" class="hover:text-white">About Us</a></li>
+                        <li><a href="contact" class="hover:text-white">Contact</a></li>
+                        <li><a href="privacy" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms" class="hover:text-white">Terms & Conditions</a></li>
+                        <li><a href="disclaimer" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div class="w-full max-w-2xl mx-auto px-4">
+                    <h4 class="text-lg font-semibold mb-4 text-white">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe to get updates on new tools and features.</p>
+                    <form 
+                        class="flex flex-col sm:flex-row sm:items-stretch sm:space-x-2 space-y-2 sm:space-y-0"
+                        onsubmit="event.preventDefault(); window.location.href='/'"
+                    >
+                        <div class="flex-1">
+                            <input 
+                                type="email" 
+                                placeholder="Your email" 
+                                class="w-full px-3 py-2 rounded-md text-gray-800 outline-none"
+                                required
+                            >
+                        </div>
+                        <div class="sm:w-auto w-full">
+                            <button 
+                                type="submit"
+                                class="w-full sm:w-auto bg-blue-600 px-5 py-2 text-white rounded-md hover:bg-blue-700 transition duration-300"
+                            >
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 <span id="copyright-domain">LearnForAll</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Get current domain and update all domain references
+        function updateDomainReferences() {
+            const currentDomain = window.location.hostname.replace('www.', '');
+            const domainElements = [
+                'header-logo', 'footer-logo', 'copyright-domain'
+            ];
+            
+            domainElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = currentDomain || 'LearnForAll';
+                }
+            });
+        }
+
+        // Toggle dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.dropdown');
+            const toolsButton = event.target.closest('button');
+            
+            if (!toolsButton || !toolsButton.textContent.includes('Tools')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Scroll functions
+        function scrollToGenerator() {
+            document.getElementById('generator').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToGuide() {
+            document.getElementById('guide').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Store all generated tags for copying
+        let allGeneratedTags = [];
+
+        // Blog post tags database
+        const tagDatabase = {
+            technology: {
+                primary: ['technology', 'innovation', 'digital-transformation', 'tech-trends', 'software', 'hardware', 'ai-artificial-intelligence', 'machine-learning', 'cybersecurity', 'cloud-computing'],
+                secondary: ['tech-news', 'programming', 'coding', 'development', 'automation', 'data-science', 'blockchain', 'iot-internet-of-things', 'mobile-technology', 'web-development'],
+                niche: ['startup-tech', 'enterprise-solutions', 'tech-reviews', 'gadget-reviews', 'software-tutorials', 'tech-careers', 'debugging', 'tech-ethics', 'open-source', 'tech-productivity'],
+                seo: ['tech-guide', 'technology-tips', 'how-to-tech', 'tech-solutions', 'digital-tools', 'tech-comparison', 'technology-trends-2025', 'tech-innovation', 'digital-strategy', 'tech-implementation']
+            },
+            business: {
+                primary: ['business', 'entrepreneurship', 'startup', 'leadership', 'management', 'strategy', 'marketing', 'sales', 'finance', 'growth'],
+                secondary: ['business-development', 'team-building', 'project-management', 'business-strategy', 'market-research', 'competitive-analysis', 'business-planning', 'operations', 'scaling', 'innovation'],
+                niche: ['small-business', 'solopreneurs', 'business-networking', 'investor-relations', 'business-partnerships', 'franchise', 'business-acquisition', 'exit-strategy', 'business-valuation', 'business-law'],
+                seo: ['business-tips', 'entrepreneurship-guide', 'startup-advice', 'business-growth-strategies', 'how-to-start-business', 'business-success', 'leadership-skills', 'business-management', 'business-development-tips', 'entrepreneur-mindset']
+            },
+            lifestyle: {
+                primary: ['lifestyle', 'wellness', 'health', 'fitness', 'mindfulness', 'self-care', 'personal-development', 'relationships', 'happiness', 'balance'],
+                secondary: ['mental-health', 'physical-fitness', 'nutrition', 'meditation', 'stress-management', 'goal-setting', 'time-management', 'hobbies', 'recreation', 'social-life'],
+                niche: ['minimalism', 'sustainable-living', 'digital-detox', 'work-life-balance', 'morning-routine', 'evening-routine', 'self-improvement', 'life-hacks', 'mindful-living', 'healthy-habits'],
+                seo: ['lifestyle-tips', 'healthy-living', 'wellness-guide', 'lifestyle-changes', 'better-living', 'lifestyle-advice', 'personal-growth', 'life-improvement', 'wellness-tips', 'healthy-lifestyle']
+            },
+            health: {
+                primary: ['health', 'wellness', 'fitness', 'nutrition', 'mental-health', 'exercise', 'diet', 'healthcare', 'medical', 'preventive-care'],
+                secondary: ['weight-loss', 'muscle-building', 'cardio', 'strength-training', 'yoga', 'meditation', 'sleep', 'stress-relief', 'supplements', 'chronic-illness'],
+                niche: ['women-health', 'men-health', 'senior-health', 'pediatric-health', 'sports-medicine', 'alternative-medicine', 'holistic-health', 'functional-medicine', 'health-screening', 'preventive-medicine'],
+                seo: ['health-tips', 'wellness-advice', 'healthy-living', 'fitness-guide', 'nutrition-tips', 'mental-health-support', 'exercise-routines', 'diet-plans', 'health-benefits', 'wellness-strategies']
+            },
+            education: {
+                primary: ['education', 'learning', 'teaching', 'skills', 'training', 'development', 'knowledge', 'study', 'academic', 'courses'],
+                secondary: ['online-learning', 'e-learning', 'professional-development', 'career-training', 'certification', 'degree', 'curriculum', 'pedagogy', 'educational-technology', 'student-success'],
+                niche: ['adult-education', 'continuing-education', 'homeschooling', 'distance-learning', 'microlearning', 'skill-development', 'language-learning', 'stem-education', 'vocational-training', 'educational-resources'],
+                seo: ['learning-tips', 'study-techniques', 'educational-guide', 'skill-building', 'learning-strategies', 'education-advice', 'how-to-learn', 'study-methods', 'learning-resources', 'educational-content']
+            },
+            travel: {
+                primary: ['travel', 'tourism', 'vacation', 'adventure', 'destinations', 'trip-planning', 'backpacking', 'exploration', 'wanderlust', 'journey'],
+                secondary: ['budget-travel', 'luxury-travel', 'solo-travel', 'family-travel', 'business-travel', 'cultural-travel', 'eco-tourism', 'road-trip', 'international-travel', 'local-travel'],
+                niche: ['travel-photography', 'travel-blogging', 'digital-nomad', 'travel-gear', 'travel-safety', 'travel-insurance', 'visa-requirements', 'travel-hacks', 'off-the-beaten-path', 'sustainable-travel'],
+                seo: ['travel-tips', 'travel-guide', 'destination-guide', 'travel-advice', 'vacation-planning', 'travel-recommendations', 'how-to-travel', 'travel-resources', 'trip-ideas', 'travel-inspiration']
+            },
+            food: {
+                primary: ['food', 'cooking', 'recipes', 'cuisine', 'nutrition', 'baking', 'culinary', 'dining', 'ingredients', 'flavors'],
+                secondary: ['healthy-eating', 'meal-prep', 'quick-meals', 'comfort-food', 'international-cuisine', 'vegetarian', 'vegan', 'gluten-free', 'keto', 'paleo'],
+                niche: ['food-photography', 'food-blogging', 'restaurant-reviews', 'food-trends', 'cooking-techniques', 'kitchen-tips', 'food-storage', 'meal-planning', 'cooking-basics', 'gourmet-cooking'],
+                seo: ['cooking-tips', 'recipe-ideas', 'healthy-recipes', 'easy-recipes', 'food-preparation', 'cooking-guide', 'nutrition-advice', 'meal-planning-tips', 'cooking-techniques', 'food-inspiration']
+            },
+            finance: {
+                primary: ['finance', 'money', 'investing', 'budgeting', 'savings', 'personal-finance', 'financial-planning', 'wealth', 'income', 'expenses'],
+                secondary: ['stock-market', 'cryptocurrency', 'real-estate', 'retirement-planning', 'insurance', 'taxes', 'debt-management', 'credit-score', 'financial-literacy', 'emergency-fund'],
+                niche: ['frugal-living', 'side-hustle', 'passive-income', 'financial-independence', 'early-retirement', 'college-savings', 'estate-planning', 'financial-goals', 'money-mindset', 'financial-education'],
+                seo: ['money-tips', 'financial-advice', 'investing-guide', 'budgeting-tips', 'savings-strategies', 'personal-finance-tips', 'money-management', 'financial-planning-advice', 'wealth-building', 'financial-success']
+            },
+            marketing: {
+                primary: ['marketing', 'digital-marketing', 'advertising', 'branding', 'promotion', 'campaigns', 'strategy', 'audience', 'engagement', 'conversion'],
+                secondary: ['content-marketing', 'social-media-marketing', 'email-marketing', 'seo', 'ppc', 'influencer-marketing', 'affiliate-marketing', 'video-marketing', 'mobile-marketing', 'analytics'],
+                niche: ['growth-hacking', 'viral-marketing', 'guerrilla-marketing', 'event-marketing', 'experiential-marketing', 'b2b-marketing', 'b2c-marketing', 'local-marketing', 'international-marketing', 'marketing-automation'],
+                seo: ['marketing-tips', 'digital-marketing-strategies', 'marketing-guide', 'advertising-tips', 'branding-advice', 'marketing-tactics', 'promotion-strategies', 'marketing-trends', 'marketing-best-practices', 'marketing-success']
+            },
+            productivity: {
+                primary: ['productivity', 'efficiency', 'time-management', 'organization', 'workflow', 'focus', 'planning', 'goals', 'habits', 'optimization'],
+                secondary: ['task-management', 'project-management', 'scheduling', 'prioritization', 'delegation', 'automation', 'tools', 'systems', 'processes', 'performance'],
+                niche: ['remote-work', 'home-office', 'digital-tools', 'productivity-apps', 'work-life-balance', 'deep-work', 'multitasking', 'procrastination', 'motivation', 'accountability'],
+                seo: ['productivity-tips', 'time-management-tips', 'efficiency-hacks', 'productivity-guide', 'organization-tips', 'workflow-optimization', 'productivity-strategies', 'focus-techniques', 'productivity-tools', 'work-efficiency']
+            }
+        };
+
+        // Generate blog tags based on input
+        function generateTags() {
+            const input = document.getElementById('blogInput').value.trim();
+            const category = document.getElementById('categorySelect').value;
+            const audience = document.getElementById('audienceSelect').value;
+
+            if (!input) {
+                alert('Please enter your blog post title or description.');
+                return;
+            }
+
+            // Show loading state
+            const generateBtn = document.getElementById('generateBtn');
+            const generateText = document.getElementById('generateText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            generateBtn.disabled = true;
+            generateText.textContent = 'Generating...';
+            loadingSpinner.style.display = 'inline-block';
+
+            // Simulate processing time
+            setTimeout(() => {
+                const tags = analyzeAndGenerateTags(input, category, audience);
+                displayTags(tags);
+                
+                // Reset button state
+                generateBtn.disabled = false;
+                generateText.textContent = 'Generate Tags';
+                loadingSpinner.style.display = 'none';
+                
+                // Show results
+                document.getElementById('resultsSection').classList.remove('hidden');
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        // Analyze input and generate relevant tags
+        function analyzeAndGenerateTags(input, category, audience) {
+            const inputLower = input.toLowerCase();
+            const words = inputLower.split(/\s+/);
+            
+            // Get base tags from category
+            let baseTags = category && tagDatabase[category] ? tagDatabase[category] : tagDatabase.business;
+            
+            // Keywords for different types of content
+            const contentKeywords = {
+                howTo: ['how to', 'guide', 'tutorial', 'step by step', 'learn', 'master'],
+                tips: ['tips', 'advice', 'strategies', 'techniques', 'methods', 'ways'],
+                review: ['review', 'comparison', 'vs', 'analysis', 'evaluation'],
+                list: ['best', 'top', 'essential', 'important', 'must', 'list'],
+                beginner: ['beginner', 'basics', 'introduction', 'getting started', 'fundamentals'],
+                advanced: ['advanced', 'expert', 'professional', 'mastery', 'deep dive']
+            };
+
+            // Audience-specific tags
+            const audienceTags = {
+                beginners: ['beginner-friendly', 'getting-started', 'basics', 'fundamentals', 'introduction'],
+                professionals: ['professional', 'advanced', 'expert-level', 'industry-insights', 'best-practices'],
+                entrepreneurs: ['entrepreneurship', 'business-growth', 'startup-advice', 'leadership', 'innovation'],
+                students: ['learning', 'education', 'study-tips', 'academic', 'skill-development'],
+                parents: ['parenting', 'family', 'work-life-balance', 'time-management', 'organization'],
+                seniors: ['senior-friendly', 'retirement', 'health-wellness', 'lifestyle', 'active-aging']
+            };
+
+            let selectedTags = {
+                primary: [],
+                secondary: [],
+                niche: [],
+                seo: []
+            };
+
+            // Primary tags - based on main topic and category
+            selectedTags.primary = selectRelevantTags(baseTags.primary, inputLower, 3);
+
+            // Secondary tags - supporting concepts
+            selectedTags.secondary = selectRelevantTags(baseTags.secondary, inputLower, 3);
+
+            // Niche tags - specific to content type and audience
+            let nicheTags = [...baseTags.niche];
+            if (audience && audienceTags[audience]) {
+                nicheTags = [...nicheTags, ...audienceTags[audience]];
+            }
+            selectedTags.niche = selectRelevantTags(nicheTags, inputLower, 3);
+
+            // SEO tags - content type specific
+            let seoTags = [...baseTags.seo];
+            
+            // Add content-type specific SEO tags
+            Object.keys(contentKeywords).forEach(type => {
+                if (contentKeywords[type].some(keyword => inputLower.includes(keyword))) {
+                    switch(type) {
+                        case 'howTo':
+                            seoTags.push('how-to-guide', 'step-by-step', 'tutorial');
+                            break;
+                        case 'tips':
+                            seoTags.push('tips-and-tricks', 'advice', 'strategies');
+                            break;
+                        case 'review':
+                            seoTags.push('review', 'comparison', 'analysis');
+                            break;
+                        case 'list':
+                            seoTags.push('list', 'compilation', 'collection');
+                            break;
+                        case 'beginner':
+                            seoTags.push('beginner-guide', 'basics', 'introduction');
+                            break;
+                        case 'advanced':
+                            seoTags.push('advanced-guide', 'expert-tips', 'mastery');
+                            break;
+                    }
+                }
+            });
+
+            selectedTags.seo = selectRelevantTags(seoTags, inputLower, 3);
+
+            // Store all tags for copying
+            allGeneratedTags = [
+                ...selectedTags.primary,
+                ...selectedTags.secondary,
+                ...selectedTags.niche,
+                ...selectedTags.seo
+            ];
+
+            return selectedTags;
+        }
+
+        // Select most relevant tags based on input content
+        function selectRelevantTags(tagArray, input, count) {
+            const scored = tagArray.map(tag => {
+                let score = 0;
+                const tagWords = tag.toLowerCase().replace(/-/g, ' ').split(' ');
+                
+                tagWords.forEach(word => {
+                    if (input.includes(word)) {
+                        score += 2; // Exact word match
+                    } else if (input.includes(word.substring(0, 4))) {
+                        score += 1; // Partial match
+                    }
+                });
+                
+                return { tag, score };
+            });
+
+            // Sort by score and return top tags
+            return scored
+                .sort((a, b) => b.score - a.score)
+                .slice(0, count)
+                .map(item => item.tag);
+        }
+
+        // Display generated tags
+        function displayTags(tags) {
+            const containers = {
+                primary: document.getElementById('primaryTags'),
+                secondary: document.getElementById('secondaryTags'),
+                niche: document.getElementById('nicheTags'),
+                seo: document.getElementById('seoTags')
+            };
+
+            Object.keys(containers).forEach(category => {
+                const container = containers[category];
+                container.innerHTML = '';
+                
+                tags[category].forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag-item';
+                    tagElement.textContent = tag;
+                    tagElement.onclick = () => copyTag(tag);
+                    tagElement.title = 'Click to copy';
+                    container.appendChild(tagElement);
+                });
+            });
+        }
+
+        // Copy individual tag
+        function copyTag(tag) {
+            navigator.clipboard.writeText(tag).then(() => {
+                showNotification(`Tag "${tag}" copied to clipboard!`);
+            });
+        }
+
+        // Copy all generated tags
+        function copyAllTags() {
+            const tagsText = allGeneratedTags.join(', ');
+            navigator.clipboard.writeText(tagsText).then(() => {
+                showNotification('All tags copied to clipboard!');
+            });
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize domain references on page load
+        document.addEventListener('DOMContentLoaded', updateDomainReferences);
+
+        // Enter key support for input
+        document.getElementById('blogInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && event.ctrlKey) {
+                generateTags();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram & TikTok Hashtag Generator - Free Social Media Tools | LearnForAll</title>
+    <meta name="description" content="Free Instagram and TikTok hashtag generator. Boost your social media reach with trending and relevant hashtags. Generate perfect hashtags for your content instantly.">
+    <meta name="keywords" content="hashtag generator, Instagram hashtags, TikTok hashtags, social media tools, free hashtag tool, trending hashtags">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+        .custom-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .dropdown { display: none; }
+        .dropdown.active { display: block; }
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: block; }
+        .hashtag-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            margin: 0.25rem;
+            display: inline-block;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .hashtag-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .platform-toggle {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+        .platform-toggle.active {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+        }
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        .copy-notification.show {
+            transform: translateX(0);
+        }
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Copy Notification -->
+    <div id="copyNotification" class="copy-notification">
+        <i class="fas fa-check-circle mr-2"></i>
+        Hashtags copied to clipboard!
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-gray-800" id="header-logo">LearnForAll</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                    <a href="about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
+                    <div class="relative">
+                        <button class="text-gray-700 hover:text-blue-600 font-medium flex items-center" onclick="toggleDropdown()">
+                            Tools
+                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border">
+                            <a href="instagram-tiktok-hashtag-tool" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 bg-blue-50 font-medium">Instagram & TikTok Hashtag Generator</a>
+                            <a href="youtube-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">YouTube Tags Generator</a>
+                            <a href="seo-keyword-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">SEO Keyword Generator</a>
+                            <a href="trending-tags-finder" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Trending Tags Finder</a>
+                            <a href="blog-post-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Blog Post Tags Generator</a>
+                        </div>
+                    </div>
+                    <a href="contact" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-menu md:hidden mt-4 pb-4">
+                <a href="/" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
+                <a href="about" class="block py-2 text-gray-700 hover:text-blue-600">About</a>
+                <div class="py-2">
+                    <span class="text-gray-700 font-medium">Tools</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="instagram-tiktok-hashtag-tool" class="block text-sm text-gray-600 hover:text-blue-600 font-medium bg-blue-50 p-2 rounded">Instagram & TikTok Hashtag Generator</a>
+                        <a href="youtube-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">YouTube Tags Generator</a>
+                        <a href="seo-keyword-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">SEO Keyword Generator</a>
+                        <a href="trending-tags-finder" class="block text-sm text-gray-600 hover:text-blue-600">Trending Tags Finder</a>
+                        <a href="blog-post-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">Blog Post Tags Generator</a>
+                    </div>
+                </div>
+                <a href="contact" class="block py-2 text-gray-700 hover:text-blue-600">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-6">
+                <i class="fab fa-instagram text-4xl mr-4"></i>
+                <h1 class="text-4xl md:text-5xl font-bold">Instagram & TikTok Hashtag Generator</h1>
+                <i class="fab fa-tiktok text-4xl ml-4"></i>
+            </div>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Boost your social media reach with trending and relevant hashtags</p>
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-2 inline-block">
+                <span class="text-sm">✨ Completely Free • No Registration Required • Instant Results</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Supercharge Your Social Media Presence</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Our Instagram & TikTok Hashtag Generator helps you discover the most effective hashtags for your content. Using the right hashtags can significantly increase your visibility, engagement, and follower growth on both platforms.</p>
+                </div>
+
+                <!-- Features -->
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="text-center p-6 bg-gradient-to-br from-pink-50 to-purple-50 rounded-lg">
+                        <i class="fas fa-trending-up text-3xl text-pink-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Discover trending hashtags</h3>
+                        <p class="text-sm text-gray-600">Stay current with the latest trending hashtags</p>
+                    </div>
+                    <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg">
+                        <i class="fas fa-eye text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Increase content visibility</h3>
+                        <p class="text-sm text-gray-600">Boost your reach and discoverability</p>
+                    </div>
+                    <div class="text-center p-6 bg-gradient-to-br from-green-50 to-teal-50 rounded-lg">
+                        <i class="fas fa-users text-3xl text-green-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Grow your audience</h3>
+                        <p class="text-sm text-gray-600">Attract more followers and engagement</p>
+                    </div>
+                </div>
+
+                <!-- Hashtag Generator Tool -->
+                <div class="bg-white rounded-lg custom-shadow p-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Generate Your Hashtags</h3>
+                    
+                    <!-- Platform Selection -->
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-gray-100 rounded-lg p-1 flex">
+                            <button id="instagramBtn" class="platform-toggle px-6 py-2 rounded-md text-white font-medium transition-all duration-300" onclick="selectPlatform('instagram')">
+                                <i class="fab fa-instagram mr-2"></i>Instagram
+                            </button>
+                            <button id="tiktokBtn" class="px-6 py-2 rounded-md text-gray-600 font-medium transition-all duration-300" onclick="selectPlatform('tiktok')">
+                                <i class="fab fa-tiktok mr-2"></i>TikTok
+                            </button>
+                            <button id="bothBtn" class="px-6 py-2 rounded-md text-gray-600 font-medium transition-all duration-300" onclick="selectPlatform('both')">
+                                <i class="fas fa-globe mr-2"></i>Both
+                            </button>
+                        </div>
+                    </div>
+
+<!-- Input Section -->
+<div class="mb-6">
+    <label class="block text-sm font-medium text-gray-700 mb-2">Enter a keyword or topic:</label>
+    <div class="flex flex-col gap-4">
+        <input type="text" id="keywordInput" placeholder="e.g., fashion, travel, fitness, food" 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-700">
+        
+        <button onclick="generateHashtags()" 
+            class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition duration-300 flex items-center justify-center">
+            <i class="fas fa-magic mr-2"></i>Generate
+        </button>
+    </div>
+    <p class="text-sm text-gray-500 mt-2">💡 Tip: Use specific keywords for better results (e.g., "street fashion" instead of just "fashion")</p>
+</div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="hidden text-center py-8">
+                        <div class="loading-spinner mx-auto mb-4"></div>
+                        <p class="text-gray-600">Generating perfect hashtags for you...</p>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="resultsSection" class="hidden">
+                        <!-- Stats -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                            <div class="text-center p-4 bg-gradient-to-br from-pink-50 to-red-50 rounded-lg">
+                                <div class="text-2xl font-bold text-pink-600" id="trendingCount">0</div>
+                                <div class="text-sm text-gray-600">Trending</div>
+                            </div>
+                            <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg">
+                                <div class="text-2xl font-bold text-blue-600" id="popularCount">0</div>
+                                <div class="text-sm text-gray-600">Popular</div>
+                            </div>
+                            <div class="text-center p-4 bg-gradient-to-br from-green-50 to-teal-50 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600" id="nicheCount">0</div>
+                                <div class="text-sm text-gray-600">Niche</div>
+                            </div>
+                            <div class="text-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg">
+                                <div class="text-2xl font-bold text-purple-600" id="totalCount">0</div>
+                                <div class="text-sm text-gray-600">Total</div>
+                            </div>
+                        </div>
+
+                        <!-- Hashtag Categories -->
+                        <div class="space-y-6">
+                            <!-- Trending Hashtags -->
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                                        <i class="fas fa-fire text-red-500 mr-2"></i>Trending Hashtags
+                                    </h4>
+                                    <button onclick="copyCategory('trending')" class="text-sm text-blue-600 hover:text-blue-800 flex items-center">
+                                        <i class="fas fa-copy mr-1"></i>Copy All
+                                    </button>
+                                </div>
+                                <div id="trendingHashtags" class="bg-gray-50 p-4 rounded-lg min-h-16 flex flex-wrap"></div>
+                            </div>
+
+                            <!-- Popular Hashtags -->
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                                        <i class="fas fa-star text-yellow-500 mr-2"></i>Popular Hashtags
+                                    </h4>
+                                    <button onclick="copyCategory('popular')" class="text-sm text-blue-600 hover:text-blue-800 flex items-center">
+                                        <i class="fas fa-copy mr-1"></i>Copy All
+                                    </button>
+                                </div>
+                                <div id="popularHashtags" class="bg-gray-50 p-4 rounded-lg min-h-16 flex flex-wrap"></div>
+                            </div>
+
+                            <!-- Niche Hashtags -->
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                                        <i class="fas fa-bullseye text-green-500 mr-2"></i>Niche Hashtags
+                                    </h4>
+                                    <button onclick="copyCategory('niche')" class="text-sm text-blue-600 hover:text-blue-800 flex items-center">
+                                        <i class="fas fa-copy mr-1"></i>Copy All
+                                    </button>
+                                </div>
+                                <div id="nicheHashtags" class="bg-gray-50 p-4 rounded-lg min-h-16 flex flex-wrap"></div>
+                            </div>
+                        </div>
+
+                        <!-- Copy All Button -->
+                        <div class="text-center mt-8">
+                            <button onclick="copyAllHashtags()" class="bg-gradient-to-r from-green-600 to-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 transition duration-300 flex items-center mx-auto">
+                                <i class="fas fa-copy mr-2"></i>Copy All Hashtags
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guide Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">The Ultimate Guide to Using Hashtags on Instagram and TikTok</h2>
+                
+                <!-- Why Hashtags Matter -->
+                <div class="bg-white rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>
+                        Why Hashtags Matter for Social Media Success
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Hashtags are more than just trendy additions to your posts—they're powerful tools that can dramatically increase your content's discoverability and engagement. On platforms like Instagram and TikTok, hashtags function as a categorization system that helps users find content related to specific topics, interests, or communities.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        When you include relevant hashtags in your posts, you're essentially creating doorways that allow new audiences to discover your content. This increased visibility can lead to more likes, comments, shares, and followers, ultimately boosting your social media presence and influence.
+                    </p>
+                </div>
+
+                <!-- Instagram Strategy -->
+                <div class="bg-white rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fab fa-instagram text-pink-500 mr-3"></i>
+                        Instagram Hashtag Strategy: Best Practices
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Instagram allows up to 30 hashtags per post, but quantity doesn't always equal quality. Research suggests that posts with 9-12 hashtags tend to perform best in terms of engagement. When crafting your Instagram hashtag strategy, consider these best practices:
+                    </p>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Mix hashtag sizes:</strong> Include a combination of popular (1M+ posts), moderately popular (100K-1M posts), and niche (less than 100K posts) hashtags to maximize your reach while ensuring your content doesn't get lost in oversaturated categories.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Use location-based hashtags:</strong> If your content is relevant to a specific location, include location-based hashtags to attract local audiences.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Create a branded hashtag:</strong> Develop a unique hashtag for your brand or campaign to encourage user-generated content and build community.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Research competitors:</strong> Analyze the hashtags used by successful accounts in your niche to identify effective hashtag strategies.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Update your hashtags regularly:</strong> Avoid using the same set of hashtags for every post. Rotate through different hashtag combinations to reach diverse audiences and prevent being flagged as spam.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- TikTok Strategy -->
+                <div class="bg-white rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fab fa-tiktok text-black mr-3"></i>
+                        TikTok Hashtag Strategy: What Works
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        TikTok's algorithm differs from Instagram's, and so does its approach to hashtags. While Instagram allows up to 30 hashtags, TikTok has a character limit for captions (including hashtags) of 100 characters. This means you need to be more strategic with your hashtag selection. Here's what works on TikTok:
+                    </p>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Trending hashtags:</strong> TikTok's "Discover" page highlights trending hashtags and challenges. Including these in your content can significantly boost visibility.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Niche-specific hashtags:</strong> Use hashtags that are specific to your content category to reach users who are interested in your niche.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Broad and specific combination:</strong> Include a mix of broad hashtags (like #fyp or #foryoupage) and specific ones related to your content.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Participate in challenges:</strong> TikTok thrives on challenges. Using challenge-specific hashtags can help your content gain traction.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Quality over quantity:</strong> Due to character limitations, focus on 3-5 highly relevant hashtags rather than trying to include as many as possible.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Science Behind Hashtags -->
+                <div class="bg-white rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-flask text-blue-500 mr-3"></i>
+                        The Science Behind Effective Hashtag Selection
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Selecting the right hashtags isn't just about popularity—it's about relevance, timing, and strategic placement. Here's the science behind effective hashtag selection:
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Relevance is Key</h4>
+                            <p class="text-sm text-gray-600">Always prioritize hashtags that accurately describe your content. Irrelevant hashtags might bring temporary traffic but can harm your account's credibility and algorithm performance in the long run.</p>
+                        </div>
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Hashtag Competition</h4>
+                            <p class="text-sm text-gray-600">Extremely popular hashtags (with millions of posts) are highly competitive, making it difficult for your content to stand out. The sweet spot often lies in moderately popular hashtags that balance visibility with competition.</p>
+                        </div>
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Timing Considerations</h4>
+                            <p class="text-sm text-gray-600">Some hashtags perform better at specific times or days. For instance, #MondayMotivation is most effective on Mondays, while #WeekendVibes works best on weekends.</p>
+                        </div>
+                        <div class="border-l-4 border-red-500 pl-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Hashtag Analytics</h4>
+                            <p class="text-sm text-gray-600">Regularly analyze which hashtags drive the most engagement for your content and refine your strategy accordingly using platform insights and third-party analytics tools.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Mistakes -->
+                <div class="bg-white rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-exclamation-triangle text-yellow-500 mr-3"></i>
+                        Common Hashtag Mistakes to Avoid
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Even with the best intentions, creators often make hashtag mistakes that can limit their content's potential. Here are some common pitfalls to avoid:
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-semibold text-red-800 mb-2 flex items-center">
+                                <i class="fas fa-times-circle mr-2"></i>Using banned hashtags
+                            </h4>
+                            <p class="text-sm text-red-700">Some hashtags have been banned or restricted by platforms due to association with inappropriate content. Using these can limit your content's reach.</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-semibold text-red-800 mb-2 flex items-center">
+                                <i class="fas fa-times-circle mr-2"></i>Hashtag stuffing
+                            </h4>
+                            <p class="text-sm text-red-700">Adding irrelevant hashtags just to increase numbers can be perceived as spam by both users and algorithms.</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-semibold text-red-800 mb-2 flex items-center">
+                                <i class="fas fa-times-circle mr-2"></i>Ignoring research
+                            </h4>
+                            <p class="text-sm text-red-700">Failing to research hashtag performance and relevance before using them can result in missed opportunities for visibility.</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-semibold text-red-800 mb-2 flex items-center">
+                                <i class="fas fa-times-circle mr-2"></i>Not tracking analytics
+                            </h4>
+                            <p class="text-sm text-red-700">Not tracking which hashtags drive engagement for your specific content makes it impossible to refine your strategy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How Our Generator Helps -->
+                <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-8 mb-8 custom-shadow">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-magic text-purple-500 mr-3"></i>
+                        How Our Hashtag Generator Enhances Your Strategy
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Our Instagram & TikTok Hashtag Generator is designed to address the challenges of hashtag selection and help you maximize your content's potential. Here's how it enhances your hashtag strategy:
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <div class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 text-sm font-bold">1</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">Relevance-focused algorithms</h4>
+                                <p class="text-sm text-gray-600">Our tool analyzes your keyword or topic to generate hashtags that are genuinely relevant to your content, ensuring you attract the right audience.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 text-sm font-bold">2</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">Balanced hashtag mix</h4>
+                                <p class="text-sm text-gray-600">We automatically provide a combination of popular, moderate, and niche hashtags to optimize your content's visibility while minimizing competition.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 text-sm font-bold">3</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">Platform-specific recommendations</h4>
+                                <p class="text-sm text-gray-600">Our generator takes into account the different requirements and best practices for Instagram versus TikTok, providing tailored suggestions for each platform.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 text-sm font-bold">4</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">Time-saving efficiency</h4>
+                                <p class="text-sm text-gray-600">Instead of spending hours researching hashtags manually, our generator provides instant, high-quality suggestions that you can implement immediately.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="text-2xl font-bold" id="footer-logo">LearnForAll</span>
+                    </div>
+                    <p class="text-gray-300">Free digital optimization tools for creators, marketers, and bloggers.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Tools</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="instagram-tiktok-hashtag-tool" class="hover:text-white font-medium">Instagram & TikTok Hashtag Tool</a></li>
+                        <li><a href="youtube-tags-generator" class="hover:text-white">YouTube Tags Generator</a></li>
+                        <li><a href="seo-keyword-tags-generator" class="hover:text-white">SEO Keyword Tags Generator</a></li>
+                        <li><a href="trending-tags-finder" class="hover:text-white">Trending Tags Finder</a></li>
+                        <li><a href="blog-post-tags-generator" class="hover:text-white">Blog Post Tags Generator</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="about" class="hover:text-white">About Us</a></li>
+                        <li><a href="contact" class="hover:text-white">Contact</a></li>
+                        <li><a href="privacy" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms" class="hover:text-white">Terms & Conditions</a></li>
+                        <li><a href="disclaimer" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div class="w-full max-w-2xl mx-auto px-4">
+                    <h4 class="text-lg font-semibold mb-4 text-white">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe to get updates on new tools and features.</p>
+                    <form class="flex flex-col sm:flex-row sm:items-stretch sm:space-x-2 space-y-2 sm:space-y-0" onsubmit="event.preventDefault(); window.location.href='/'">
+                        <div class="flex-1">
+                            <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded-md text-gray-800 outline-none" required>
+                        </div>
+                        <div class="sm:w-auto w-full">
+                            <button type="submit" class="w-full sm:w-auto bg-blue-600 px-5 py-2 text-white rounded-md hover:bg-blue-700 transition duration-300">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 <span id="copyright-domain">LearnForAll</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let selectedPlatform = 'instagram';
+        let generatedHashtags = {
+            trending: [],
+            popular: [],
+            niche: []
+        };
+
+        // Hashtag databases
+        const hashtagDatabase = {
+            instagram: {
+                trending: ['#trending', '#viral', '#reels', '#explore', '#fyp', '#instadaily', '#love', '#photooftheday', '#instagood', '#beautiful'],
+                popular: ['#photography', '#art', '#nature', '#travel', '#lifestyle', '#fashion', '#food', '#fitness', '#music', '#inspiration'],
+                niche: ['#smallbusiness', '#entrepreneur', '#mindfulness', '#sustainability', '#creativity', '#community', '#growth', '#learning', '#adventure', '#authentic']
+            },
+            tiktok: {
+                trending: ['#fyp', '#foryou', '#viral', '#trending', '#foryoupage', '#tiktok', '#xyzbca', '#fypシ', '#viralvideo', '#trend'],
+                popular: ['#dance', '#comedy', '#music', '#diy', '#cooking', '#fashion', '#beauty', '#travel', '#pets', '#fitness'],
+                niche: ['#smallbiz', '#entrepreneur', '#learn', '#tips', '#hack', '#tutorial', '#storytime', '#dayinmylife', '#asmr', '#aesthetic']
+            }
+        };
+
+        // Topic-specific hashtags
+        const topicHashtags = {
+            fashion: {
+                trending: ['#fashionweek', '#ootd', '#style', '#trendy', '#fashionista', '#streetstyle', '#fashionblogger', '#styleinspiration', '#fashiontrends', '#outfit'],
+                popular: ['#fashion', '#style', '#outfit', '#clothing', '#designer', '#vintage', '#shopping', '#model', '#fashionphotography', '#styleinspo'],
+                niche: ['#sustainablefashion', '#thrifted', '#vintageoutfit', '#ethicalfashion', '#capsulewardrobe', '#fashionhaul', '#stylejourney', '#fashiondiary', '#outfitplanning', '#wardrobeessentials']
+            },
+            travel: {
+                trending: ['#travel', '#wanderlust', '#explore', '#adventure', '#vacation', '#trip', '#travelblogger', '#travelgram', '#instatravel', '#travelling'],
+                popular: ['#nature', '#beach', '#mountains', '#city', '#culture', '#photography', '#landscape', '#sunset', '#holiday', '#journey'],
+                niche: ['#solotravel', '#backpacking', '#roadtrip', '#localhidden', '#offthebeatenpath', '#sustainabletravel', '#budgettravel', '#travelcouple', '#digitalnomad', '#hiddengems']
+            },
+            fitness: {
+                trending: ['#fitness', '#workout', '#gym', '#fit', '#health', '#strong', '#motivation', '#fitnessmotivation', '#bodybuilding', '#training'],
+                popular: ['#exercise', '#healthy', '#lifestyle', '#muscle', '#cardio', '#strength', '#yoga', '#running', '#nutrition', '#wellness'],
+                niche: ['#homeworkout', '#bodyweight', '#functionaltraining', '#mindfulmovement', '#calisthenics', '#hiit', '#pilates', '#crosstraining', '#mobilitywork', '#strengthtraining']
+            },
+            food: {
+                trending: ['#food', '#foodie', '#delicious', '#yummy', '#foodporn', '#instafood', '#cooking', '#recipe', '#foodblogger', '#tasty'],
+                popular: ['#homemade', '#healthy', '#dinner', '#lunch', '#breakfast', '#dessert', '#baking', '#chef', '#kitchen', '#foodphotography'],
+                niche: ['#plantbased', '#vegan', '#glutenfree', '#mealprep', '#comfortfood', '#farmtotable', '#localingredients', '#seasonalcooking', '#zerowaste', '#mindfulcooking']
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDomainReferences();
+            document.getElementById('keywordInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    generateHashtags();
+                }
+            });
+        });
+
+        // Update domain references
+        function updateDomainReferences() {
+            const currentDomain = window.location.hostname.replace('www.', '');
+            const domainElements = ['header-logo', 'footer-logo', 'copyright-domain'];
+            
+            domainElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = currentDomain || 'LearnForAll';
+                }
+            });
+        }
+
+        // Platform selection
+        function selectPlatform(platform) {
+            selectedPlatform = platform;
+            
+            // Update button styles
+            document.querySelectorAll('[id$="Btn"]').forEach(btn => {
+                btn.className = 'px-6 py-2 rounded-md text-gray-600 font-medium transition-all duration-300';
+            });
+            
+            document.getElementById(platform + 'Btn').className = 'platform-toggle px-6 py-2 rounded-md text-white font-medium transition-all duration-300';
+        }
+
+        // Generate hashtags
+        function generateHashtags() {
+            const keyword = document.getElementById('keywordInput').value.trim().toLowerCase();
+            
+            if (!keyword) {
+                alert('Please enter a keyword or topic');
+                return;
+            }
+
+            // Show loading state
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+
+            // Simulate API call delay
+            setTimeout(() => {
+                const hashtags = generateHashtagsForKeyword(keyword);
+                displayResults(hashtags);
+                
+                // Hide loading state
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('resultsSection').classList.remove('hidden');
+                
+                // Scroll to results
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+            }, 2000);
+        }
+
+        // Generate hashtags for keyword
+        function generateHashtagsForKeyword(keyword) {
+            let hashtags = {
+                trending: [],
+                popular: [],
+                niche: []
+            };
+
+            // Check if keyword matches specific topics
+            if (topicHashtags[keyword]) {
+                hashtags = { ...topicHashtags[keyword] };
+            } else {
+                // Generate generic hashtags based on platform
+                const platforms = selectedPlatform === 'both' ? ['instagram', 'tiktok'] : [selectedPlatform];
+                
+                platforms.forEach(platform => {
+                    hashtags.trending = [...hashtags.trending, ...hashtagDatabase[platform].trending.slice(0, 5)];
+                    hashtags.popular = [...hashtags.popular, ...hashtagDatabase[platform].popular.slice(0, 8)];
+                    hashtags.niche = [...hashtags.niche, ...hashtagDatabase[platform].niche.slice(0, 7)];
+                });
+
+                // Add keyword-based hashtags
+                hashtags.trending.unshift(`#${keyword}`, `#${keyword}trending`, `#${keyword}viral`);
+                hashtags.popular.unshift(`#${keyword}love`, `#${keyword}community`, `#${keyword}inspiration`);
+                hashtags.niche.unshift(`#${keyword}tips`, `#${keyword}tutorial`, `#${keyword}journey`);
+            }
+
+            // Remove duplicates and limit count
+            hashtags.trending = [...new Set(hashtags.trending)].slice(0, 8);
+            hashtags.popular = [...new Set(hashtags.popular)].slice(0, 12);
+            hashtags.niche = [...new Set(hashtags.niche)].slice(0, 10);
+
+            generatedHashtags = hashtags;
+            return hashtags;
+        }
+
+        // Display results
+        function displayResults(hashtags) {
+            // Update counts
+            document.getElementById('trendingCount').textContent = hashtags.trending.length;
+            document.getElementById('popularCount').textContent = hashtags.popular.length;
+            document.getElementById('nicheCount').textContent = hashtags.niche.length;
+            document.getElementById('totalCount').textContent = hashtags.trending.length + hashtags.popular.length + hashtags.niche.length;
+
+            // Display hashtags
+            displayHashtagCategory('trending', hashtags.trending);
+            displayHashtagCategory('popular', hashtags.popular);
+            displayHashtagCategory('niche', hashtags.niche);
+        }
+
+        // Display hashtag category
+        function displayHashtagCategory(category, hashtags) {
+            const container = document.getElementById(category + 'Hashtags');
+            container.innerHTML = '';
+
+            hashtags.forEach(hashtag => {
+                const tag = document.createElement('span');
+                tag.className = 'hashtag-tag';
+                tag.textContent = hashtag;
+                tag.onclick = () => copyToClipboard(hashtag);
+                container.appendChild(tag);
+            });
+        }
+
+        // Copy functions
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showCopyNotification(`"${text}" copied!`);
+            });
+        }
+
+        function copyCategory(category) {
+            const hashtags = generatedHashtags[category].join(' ');
+            navigator.clipboard.writeText(hashtags).then(() => {
+                showCopyNotification(`${category} hashtags copied!`);
+            });
+        }
+
+        function copyAllHashtags() {
+            const allHashtags = [
+                ...generatedHashtags.trending,
+                ...generatedHashtags.popular,
+                ...generatedHashtags.niche
+            ].join(' ');
+            
+            navigator.clipboard.writeText(allHashtags).then(() => {
+                showCopyNotification('All hashtags copied!');
+            });
+        }
+
+        // Show copy notification
+        function showCopyNotification(message) {
+            const notification = document.getElementById('copyNotification');
+            notification.innerHTML = `<i class="fas fa-check-circle mr-2"></i>${message}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Navigation functions
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.dropdown');
+            const toolsButton = event.target.closest('button');
+            
+            if (!toolsButton || !toolsButton.textContent.includes('Tools')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

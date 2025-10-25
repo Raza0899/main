@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Tags Generator - Free SEO-Friendly Video Tags | Tolzo.site</title>
+    <meta name="description" content="Generate SEO-optimized YouTube tags to boost video visibility and reach. Free YouTube tag generator with competitor analysis, trending keywords, and best practices for maximum video performance.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+        .custom-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .dropdown { display: none; }
+        .dropdown.active { display: block; }
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: block; }
+        .tag-item { 
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .tag-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .copy-animation {
+            animation: copyPulse 0.6s ease-in-out;
+        }
+        @keyframes copyPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-gray-800" id="header-logo">LearnForAll</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                    <a href="about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
+                    <div class="relative">
+                        <button class="text-gray-700 hover:text-blue-600 font-medium flex items-center" onclick="toggleDropdown()">
+                            Tools
+                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border">
+                            <a href="instagram-tiktok-hashtag-tool" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Instagram & TikTok Hashtag Generator</a>
+                            <a href="youtube-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 bg-blue-50 text-blue-600">YouTube Tags Generator</a>
+                            <a href="seo-keyword-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">SEO Keyword Generator</a>
+                            <a href="trending-tags-finder" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Trending Tags Finder</a>
+                            <a href="blog-post-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Blog Post Tags Generator</a>
+                        </div>
+                    </div>
+                    <a href="contact" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-menu md:hidden mt-4 pb-4">
+                <a href="/" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
+                <a href="about" class="block py-2 text-gray-700 hover:text-blue-600">About</a>
+                <div class="py-2">
+                    <span class="text-gray-700 font-medium">Tools</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="instagram-tiktok-hashtag-tool" class="block text-sm text-gray-600 hover:text-blue-600">Instagram & TikTok Hashtag Generator</a>
+                        <a href="youtube-tags-generator" class="block text-sm text-blue-600 font-medium">YouTube Tags Generator</a>
+                        <a href="seo-keyword-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">SEO Keyword Generator</a>
+                        <a href="trending-tags-finder" class="block text-sm text-gray-600 hover:text-blue-600">Trending Tags Finder</a>
+                        <a href="blog-post-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">Blog Post Tags Generator</a>
+                    </div>
+                </div>
+                <a href="contact" class="block py-2 text-gray-700 hover:text-blue-600">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-6">
+                <i class="fab fa-youtube text-6xl text-red-400 mr-4"></i>
+                <h1 class="text-4xl md:text-5xl font-bold">YouTube Tags Generator</h1>
+            </div>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Optimize your videos with SEO-friendly tags to increase visibility and views</p>
+            <div class="max-w-md mx-auto">
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-1">
+                    <div class="flex items-center text-white">
+                        <i class="fas fa-tags mr-3 ml-3"></i>
+                        <span class="text-lg">Boost Your YouTube Video Performance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Description -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-lg text-gray-600 leading-relaxed">YouTube tags are crucial metadata that help the platform understand what your video is about. While they may not be as visible as titles and descriptions, tags play a significant role in how YouTube's algorithm categorizes and recommends your content to viewers.</p>
+                <div class="grid md:grid-cols-3 gap-6 mt-8">
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-search text-blue-500 text-2xl mr-3"></i>
+                        <span class="text-gray-700 font-medium">Improve search visibility</span>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-eye text-green-500 text-2xl mr-3"></i>
+                        <span class="text-gray-700 font-medium">Increase suggested video appearances</span>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-users text-purple-500 text-2xl mr-3"></i>
+                        <span class="text-gray-700 font-medium">Reach your target audience</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Tags Generator Tool -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Generate YouTube Tags</h2>
+                    
+                    <!-- Input Section -->
+                    <div class="mb-8">
+                        <label for="videoInput" class="block text-lg font-medium text-gray-700 mb-4">
+                            Enter your video title or main keyword:
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="videoInput" 
+                                placeholder="e.g., How to Make Chocolate Chip Cookies | Easy Recipe"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                                maxlength="100"
+                            >
+                            <div class="absolute right-3 top-3 text-sm text-gray-400">
+                                <span id="charCount">0</span>/100
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">Enter your video title, main topic, or primary keyword to generate relevant tags</p>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <div class="text-center mb-8">
+                        <button 
+                            id="generateBtn"
+                            onclick="generateTags()"
+                            class="bg-red-500 hover:bg-red-600 text-white font-semibold py-4 px-8 rounded-lg transition duration-300 text-lg shadow-lg"
+                        >
+                            <i class="fas fa-magic mr-2"></i>Generate Tags
+                        </button>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="resultsSection" class="hidden">
+                        <!-- Stats -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            <div class="bg-blue-50 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-blue-600" id="totalTags">0</div>
+                                <div class="text-sm text-gray-600">Total Tags</div>
+                            </div>
+                            <div class="bg-green-50 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-green-600" id="characterCount">0</div>
+                                <div class="text-sm text-gray-600">Characters Used</div>
+                            </div>
+                            <div class="bg-purple-50 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-purple-600">500</div>
+                                <div class="text-sm text-gray-600">Character Limit</div>
+                            </div>
+                        </div>
+
+                        <!-- Tag Categories -->
+                        <div class="space-y-6">
+                            <!-- Primary Tags -->
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-800 flex items-center">
+                                        <i class="fas fa-star text-yellow-500 mr-2"></i>Primary Tags
+                                    </h3>
+                                    <button onclick="copyTags('primary')" class="text-blue-500 hover:text-blue-600 text-sm">
+                                        <i class="fas fa-copy mr-1"></i>Copy All
+                                    </button>
+                                </div>
+                                <div id="primaryTags" class="flex flex-wrap gap-2"></div>
+                            </div>
+
+                            <!-- Related Tags -->
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-800 flex items-center">
+                                        <i class="fas fa-link text-blue-500 mr-2"></i>Related Tags
+                                    </h3>
+                                    <button onclick="copyTags('related')" class="text-blue-500 hover:text-blue-600 text-sm">
+                                        <i class="fas fa-copy mr-1"></i>Copy All
+                                    </button>
+                                </div>
+                                <div id="relatedTags" class="flex flex-wrap gap-2"></div>
+                            </div>
+
+                            <!-- Long-tail Tags -->
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-800 flex items-center">
+                                        <i class="fas fa-search-plus text-green-500 mr-2"></i>Long-tail Keywords
+                                    </h3>
+                                    <button onclick="copyTags('longtail')" class="text-blue-500 hover:text-blue-600 text-sm">
+                                        <i class="fas fa-copy mr-1"></i>Copy All
+                                    </button>
+                                </div>
+                                <div id="longtailTags" class="flex flex-wrap gap-2"></div>
+                            </div>
+
+                            <!-- Trending Tags -->
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-800 flex items-center">
+                                        <i class="fas fa-fire text-red-500 mr-2"></i>Trending Tags
+                                    </h3>
+                                    <button onclick="copyTags('trending')" class="text-blue-500 hover:text-blue-600 text-sm">
+                                        <i class="fas fa-copy mr-1"></i>Copy All
+                                    </button>
+                                </div>
+                                <div id="trendingTags" class="flex flex-wrap gap-2"></div>
+                            </div>
+                        </div>
+
+                        <!-- Copy All Tags -->
+                        <div class="mt-8 text-center">
+                            <button 
+                                onclick="copyAllTags()"
+                                class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300"
+                            >
+                                <i class="fas fa-copy mr-2"></i>Copy All Tags
+                            </button>
+                        </div>
+
+                        <!-- All Tags Text Area -->
+                        <div class="mt-8">
+                            <label for="allTagsText" class="block text-lg font-medium text-gray-700 mb-2">
+                                All Generated Tags (Ready to paste into YouTube):
+                            </label>
+                            <textarea 
+                                id="allTagsText"
+                                class="w-full h-32 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                                readonly
+                                placeholder="Generated tags will appear here..."
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="hidden text-center py-8">
+                        <div class="loading-spinner inline-block w-8 h-8 rounded-full border-4 border-blue-500 border-t-transparent mr-3"></div>
+                        <span class="text-gray-600">Generating optimized tags...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Tags Guide -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">The Complete Guide to YouTube Tags: Boost Your Video SEO</h2>
+                
+                <!-- Why YouTube Tags Matter -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-question-circle text-blue-500 mr-3"></i>Why YouTube Tags Matter for Video Success
+                    </h3>
+                    <div class="prose prose-lg text-gray-600 space-y-4">
+                        <p>YouTube tags are keywords that help describe your video content to both the YouTube algorithm and potential viewers. While they're not visible on the video page by default (viewers need to view the page source to see them), tags play a crucial role in how YouTube categorizes and recommends your content.</p>
+                        
+                        <p>Despite some misconceptions that tags have become less important over time, they remain a valuable tool in your YouTube SEO arsenal. Here's why tags still matter in 2025:</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 my-8">
+                            <div class="bg-blue-50 p-6 rounded-lg">
+                                <h4 class="font-semibold text-blue-800 mb-2">Search ranking signals</h4>
+                                <p class="text-blue-700">Tags help YouTube understand the content and context of your video, which influences how it ranks in search results.</p>
+                            </div>
+                            <div class="bg-green-50 p-6 rounded-lg">
+                                <h4 class="font-semibold text-green-800 mb-2">Related video suggestions</h4>
+                                <p class="text-green-700">Well-chosen tags can help your video appear in the "suggested videos" section alongside similar content.</p>
+                            </div>
+                            <div class="bg-purple-50 p-6 rounded-lg">
+                                <h4 class="font-semibold text-purple-800 mb-2">Content categorization</h4>
+                                <p class="text-purple-700">Tags help YouTube properly categorize your video, ensuring it reaches the right audience.</p>
+                            </div>
+                            <div class="bg-orange-50 p-6 rounded-lg">
+                                <h4 class="font-semibold text-orange-800 mb-2">Language clarification</h4>
+                                <p class="text-orange-700">Tags can help YouTube understand the language of your content, especially for multilingual channels.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Best Practices -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-thumbs-up text-green-500 mr-3"></i>YouTube Tag Best Practices: What Works in 2025
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-green-500 pl-6">
+                            <h4 class="font-semibold text-lg text-gray-800 mb-2">Start with specific tags</h4>
+                            <p class="text-gray-600">Begin with the most specific and relevant tags that directly describe your video content.</p>
+                        </div>
+                        <div class="border-l-4 border-blue-500 pl-6">
+                            <h4 class="font-semibold text-lg text-gray-800 mb-2">Include a mix of tag types</h4>
+                            <p class="text-gray-600">Use a combination of specific tags (directly about your video), compound tags (phrases), broad tags (general topics), and branded tags (your channel name or series).</p>
+                        </div>
+                        <div class="border-l-4 border-purple-500 pl-6">
+                            <h4 class="font-semibold text-lg text-gray-800 mb-2">Prioritize relevance over volume</h4>
+                            <p class="text-gray-600">YouTube allows up to 500 characters for tags, but it's better to use fewer highly relevant tags than to stuff your video with marginally related keywords.</p>
+                        </div>
+                        <div class="border-l-4 border-orange-500 pl-6">
+                            <h4 class="font-semibold text-lg text-gray-800 mb-2">Order matters</h4>
+                            <p class="text-gray-600">Place your most important tags first, as they carry more weight in YouTube's algorithm.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Mistakes -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-exclamation-triangle text-red-500 mr-3"></i>Common YouTube Tag Mistakes to Avoid
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-semibold text-red-800 mb-2">❌ Irrelevant tag stuffing</h4>
+                            <p class="text-red-700">Adding popular but unrelated tags might initially bring views but will hurt your retention rates and long-term performance.</p>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-semibold text-red-800 mb-2">❌ Using only broad, generic tags</h4>
+                            <p class="text-red-700">Tags like "video" or "YouTube" are too general to help your specific content stand out.</p>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-semibold text-red-800 mb-2">❌ Ignoring search intent</h4>
+                            <p class="text-red-700">Not considering what viewers are actually looking for when they search for certain terms.</p>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-semibold text-red-800 mb-2">❌ Copying competitor tags blindly</h4>
+                            <p class="text-red-700">Using the same tags as popular videos without understanding if they're relevant to your content.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Research Methods -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-search text-blue-500 mr-3"></i>How to Research Effective YouTube Tags
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-3">YouTube search suggestions</h4>
+                            <p class="text-blue-700">Start typing relevant keywords in YouTube's search bar and note the auto-complete suggestions, which reflect common searches.</p>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-3">Competitor analysis</h4>
+                            <p class="text-green-700">Examine tags used by successful videos similar to yours. You can view them by viewing the page source (right-click > View Page Source, then search for "keywords").</p>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-purple-800 mb-3">YouTube Analytics</h4>
+                            <p class="text-purple-700">Check your own analytics to see which search terms are already bringing viewers to your videos.</p>
+                        </div>
+                        <div class="bg-orange-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-orange-800 mb-3">Keyword research tools</h4>
+                            <p class="text-orange-700">Use specialized tools like TubeBuddy, vidIQ, or general SEO tools like Ahrefs or SEMrush to find relevant keywords with good search volume and manageable competition.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Types -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-video text-red-500 mr-3"></i>Optimizing Tags for Different Video Types
+                    </h3>
+                    <div class="space-y-8">
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Tutorial and How-To Videos</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-2">
+                                <li>Include action-oriented tags (how to, tutorial, step by step, guide, learn)</li>
+                                <li>Add difficulty level indicators (beginner, advanced, easy)</li>
+                                <li>Specify tools or materials mentioned</li>
+                                <li>Include problem-solving phrases ("fix," "solve," "troubleshoot")</li>
+                            </ul>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Product Reviews</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-2">
+                                <li>Include exact product name, model, and year</li>
+                                <li>Add review-specific terms (review, hands-on, unboxing)</li>
+                                <li>Include comparison terms if applicable (vs, versus, comparison)</li>
+                                <li>Add benefit-focused tags (best for, recommended for)</li>
+                            </ul>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Entertainment and Vlog Content</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-2">
+                                <li>Include emotion-based tags (funny, exciting, surprising)</li>
+                                <li>Add content format tags (vlog, day in the life, behind the scenes)</li>
+                                <li>Include personality or character references</li>
+                                <li>Add trending event or challenge tags when relevant</li>
+                            </ul>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Educational Content</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-2">
+                                <li>Include subject-specific terminology and concepts</li>
+                                <li>Add academic level indicators (elementary, high school, college)</li>
+                                <li>Include learning outcome tags (learn, understand, master)</li>
+                                <li>Add certification or curriculum references when applicable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Strategies -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-rocket text-purple-500 mr-3"></i>Advanced YouTube Tag Strategies
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-purple-800 mb-3">Competitive gap analysis</h4>
+                            <p class="text-purple-700">Identify valuable tags that your competitors are overlooking.</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-50 to-green-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-3">Tag clustering</h4>
+                            <p class="text-blue-700">Group related videos with similar tag structures to build topical authority.</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-50 to-yellow-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-3">Cross-pollination strategy</h4>
+                            <p class="text-green-700">Strategically use tags from complementary content categories to reach adjacent audiences.</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-yellow-800 mb-3">Trend forecasting</h4>
+                            <p class="text-yellow-700">Anticipate and incorporate tags for upcoming trends before they peak.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool Benefits -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-tools text-blue-500 mr-3"></i>How Our YouTube Tags Generator Enhances Your Strategy
+                    </h3>
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-lg">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-blue-800 mb-3">🎯 Comprehensive tag suggestions</h4>
+                                <p class="text-blue-700 mb-4">Our tool analyzes your video title or main keyword to generate a diverse set of relevant tags.</p>
+                                
+                                <h4 class="font-semibold text-purple-800 mb-3">📊 Category-specific recommendations</h4>
+                                <p class="text-purple-700 mb-4">We provide tags organized by category (primary, related, trending) to ensure a balanced tag strategy.</p>
+                                
+                                <h4 class="font-semibold text-green-800 mb-3">🔍 Competitive analysis integration</h4>
+                                <p class="text-green-700">Our algorithm incorporates data from successful videos in similar categories.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-orange-800 mb-3">🔥 Trend awareness</h4>
+                                <p class="text-orange-700 mb-4">The generator includes currently trending tags relevant to your content topic.</p>
+                                
+                                <h4 class="font-semibold text-red-800 mb-3">⚡ Time-saving efficiency</h4>
+                                <p class="text-red-700 mb-4">What might take hours of manual research can be accomplished in seconds with our generator.</p>
+                                
+                                <h4 class="font-semibold text-indigo-800 mb-3">🔄 Regular updates</h4>
+                                <p class="text-indigo-700">Our tag database is continuously updated to reflect changing search patterns and platform algorithms.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 gradient-bg text-white text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-6">Ready to Optimize Your YouTube Videos?</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Start generating optimized tags for your YouTube videos today and take an important step toward improving your video's visibility and performance!</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="document.getElementById('videoInput').focus()" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+                    Generate Tags Now
+                </button>
+                <a href="/" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
+                    Explore More Tools
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="text-2xl font-bold" id="footer-logo">LearnForAll</span>
+                    </div>
+                    <p class="text-gray-300">Free digital optimization tools for creators, marketers, and bloggers.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Tools</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="instagram-tiktok-hashtag-tool" class="hover:text-white">Instagram & TikTok Hashtag Tool</a></li>
+                        <li><a href="youtube-tags-generator" class="hover:text-white text-blue-400">YouTube Tags Generator</a></li>
+                        <li><a href="seo-keyword-tags-generator" class="hover:text-white">SEO Keyword Tags Generator</a></li>
+                        <li><a href="trending-tags-finder" class="hover:text-white">Trending Tags Finder</a></li>
+                        <li><a href="blog-post-tags-generator" class="hover:text-white">Blog Post Tags Generator</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="about" class="hover:text-white">About Us</a></li>
+                        <li><a href="contact" class="hover:text-white">Contact</a></li>
+                        <li><a href="privacy" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms" class="hover:text-white">Terms & Conditions</a></li>
+                        <li><a href="disclaimer" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div class="w-full max-w-2xl mx-auto px-4">
+                    <h4 class="text-lg font-semibold mb-4 text-white">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe to get updates on new tools and features.</p>
+                    <form 
+                        class="flex flex-col sm:flex-row sm:items-stretch sm:space-x-2 space-y-2 sm:space-y-0"
+                        onsubmit="event.preventDefault(); window.location.href='/'"
+                    >
+                        <div class="flex-1">
+                            <input 
+                                type="email" 
+                                placeholder="Your email" 
+                                class="w-full px-3 py-2 rounded-md text-gray-800 outline-none"
+                                required
+                            >
+                        </div>
+                        <div class="sm:w-auto w-full">
+                            <button 
+                                type="submit"
+                                class="w-full sm:w-auto bg-blue-600 px-5 py-2 text-white rounded-md hover:bg-blue-700 transition duration-300"
+                            >
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 <span id="copyright-domain">LearnForAll</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Get current domain and update all domain references
+        function updateDomainReferences() {
+            const currentDomain = window.location.hostname.replace('www.', '');
+            const domainElements = [
+                'header-logo', 'footer-logo', 'copyright-domain'
+            ];
+            
+            domainElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = currentDomain || 'LearnForAll';
+                }
+            });
+        }
+
+        // Toggle dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.dropdown');
+            const toolsButton = event.target.closest('button');
+            
+            if (!toolsButton || !toolsButton.textContent.includes('Tools')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Character counter for input
+        document.getElementById('videoInput').addEventListener('input', function() {
+            const charCount = this.value.length;
+            document.getElementById('charCount').textContent = charCount;
+        });
+
+        // YouTube Tags Generation Logic
+        function generateTags() {
+            const input = document.getElementById('videoInput').value.trim();
+            
+            if (!input) {
+                alert('Please enter a video title or keyword to generate tags.');
+                return;
+            }
+
+            // Show loading state
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+            
+            // Disable generate button
+            const generateBtn = document.getElementById('generateBtn');
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Generating...';
+
+            // Simulate API call delay
+            setTimeout(() => {
+                const tags = generateTagsFromInput(input);
+                displayResults(tags);
+                
+                // Re-enable generate button
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = '<i class="fas fa-magic mr-2"></i>Generate Tags';
+                
+                // Hide loading state and show results
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('resultsSection').classList.remove('hidden');
+            }, 2000);
+        }
+
+        function generateTagsFromInput(input) {
+            const words = input.toLowerCase().split(/\s+/);
+            const mainKeyword = words.slice(0, 3).join(' ');
+            
+            // Simulated tag generation based on input
+            const primary = [
+                mainKeyword,
+                words[0],
+                input.toLowerCase(),
+                words.slice(0, 2).join(' ')
+            ].filter(tag => tag && tag.length > 2);
+
+            const related = [
+                `${words[0]} tutorial`,
+                `${words[0]} guide`,
+                `${words[0]} tips`,
+                `how to ${words[0]}`,
+                `${words[0]} explained`,
+                `${words[0]} for beginners`,
+                `${words[0]} step by step`,
+                `${words[0]} review`
+            ].filter(tag => tag.length > 0);
+
+            const longtail = [
+                `how to ${mainKeyword}`,
+                `${mainKeyword} tutorial`,
+                `${mainKeyword} for beginners`,
+                `${mainKeyword} step by step guide`,
+                `best ${mainKeyword}`,
+                `${mainKeyword} tips and tricks`,
+                `${mainKeyword} explained`,
+                `complete ${mainKeyword} guide`
+            ];
+
+            const trending = [
+                `${words[0]} 2025`,
+                `${words[0]} trending`,
+                `viral ${words[0]}`,
+                `${words[0]} hack`,
+                `${words[0]} secrets`,
+                `${words[0]} pro tips`,
+                `${words[0]} mastery`,
+                `ultimate ${words[0]}`
+            ];
+
+            return { primary, related, longtail, trending };
+        }
+
+        function displayResults(tags) {
+            displayTagCategory('primaryTags', tags.primary, 'primary');
+            displayTagCategory('relatedTags', tags.related, 'related');
+            displayTagCategory('longtailTags', tags.longtail, 'longtail');
+            displayTagCategory('trendingTags', tags.trending, 'trending');
+            
+            updateStats(tags);
+            updateAllTagsTextarea(tags);
+        }
+
+        function displayTagCategory(containerId, tags, category) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = `tag-item inline-block bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-full text-sm mr-2 mb-2 cursor-pointer transition-all duration-300`;
+                tagElement.textContent = tag;
+                tagElement.onclick = () => copyTag(tag, tagElement);
+                container.appendChild(tagElement);
+            });
+        }
+
+        function updateStats(tags) {
+            const allTags = [...tags.primary, ...tags.related, ...tags.longtail, ...tags.trending];
+            const totalTags = allTags.length;
+            const allTagsString = allTags.join(', ');
+            const characterCount = allTagsString.length;
+            
+            document.getElementById('totalTags').textContent = totalTags;
+            document.getElementById('characterCount').textContent = characterCount;
+            
+            // Update character count color based on limit
+            const charElement = document.getElementById('characterCount');
+            if (characterCount > 500) {
+                charElement.className = 'text-2xl font-bold text-red-600';
+            } else if (characterCount > 400) {
+                charElement.className = 'text-2xl font-bold text-yellow-600';
+            } else {
+                charElement.className = 'text-2xl font-bold text-green-600';
+            }
+        }
+
+        function updateAllTagsTextarea(tags) {
+            const allTags = [...tags.primary, ...tags.related, ...tags.longtail, ...tags.trending];
+            const allTagsString = allTags.join(', ');
+            document.getElementById('allTagsText').value = allTagsString;
+        }
+
+        function copyTag(tag, element) {
+            navigator.clipboard.writeText(tag).then(() => {
+                element.classList.add('copy-animation');
+                element.style.backgroundColor = '#10B981';
+                element.style.color = 'white';
+                
+                setTimeout(() => {
+                    element.classList.remove('copy-animation');
+                    element.style.backgroundColor = '';
+                    element.style.color = '';
+                }, 600);
+            });
+        }
+
+        function copyTags(category) {
+            const container = document.getElementById(`${category}Tags`);
+            const tags = Array.from(container.children).map(el => el.textContent);
+            const tagsString = tags.join(', ');
+            
+            navigator.clipboard.writeText(tagsString).then(() => {
+                showCopyNotification(`${category.charAt(0).toUpperCase() + category.slice(1)} tags copied!`);
+            });
+        }
+
+        function copyAllTags() {
+            const textarea = document.getElementById('allTagsText');
+            textarea.select();
+            navigator.clipboard.writeText(textarea.value).then(() => {
+                showCopyNotification('All tags copied to clipboard!');
+            });
+        }
+
+        function showCopyNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            notification.innerHTML = `<i class="fas fa-check mr-2"></i>${message}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Enter key support for input
+        document.getElementById('videoInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generateTags();
+            }
+        });
+
+        // Initialize domain references on page load
+        document.addEventListener('DOMContentLoaded', updateDomainReferences);
+    </script>
+</body>
+</html>

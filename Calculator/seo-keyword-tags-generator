@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Keyword Tags Generator - Free SEO Tools | Tolzo.site</title>
+    <meta name="description" content="Discover the perfect keywords to optimize your content and improve search rankings. Free SEO keyword generator with comprehensive insights and high-performing keyword suggestions.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+        .custom-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .dropdown { display: none; }
+        .dropdown.active { display: block; }
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: block; }
+        .keyword-tag {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 1px solid #2196f3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .keyword-tag:hover {
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .keyword-tag.copied {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+        }
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2196f3;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .difficulty-easy { color: #4caf50; }
+        .difficulty-medium { color: #ff9800; }
+        .difficulty-hard { color: #f44336; }
+        .search-volume-high { color: #2196f3; }
+        .search-volume-medium { color: #ff9800; }
+        .search-volume-low { color: #9e9e9e; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-gray-800" id="header-logo">Tolzo.site</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                    <a href="/about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
+                    <div class="relative">
+                        <button class="text-gray-700 hover:text-blue-600 font-medium flex items-center" onclick="toggleDropdown()">
+                            Tools
+                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border">
+                            <a href="/instagram-tiktok-hashtag-tool" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Instagram & TikTok Hashtag Generator</a>
+                            <a href="/youtube-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">YouTube Tags Generator</a>
+                            <a href="/seo-keyword-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 bg-blue-50">SEO Keyword Generator</a>
+                            <a href="/trending-tags-finder" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Trending Tags Finder</a>
+                            <a href="/blog-post-tags-generator" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Blog Post Tags Generator</a>
+                        </div>
+                    </div>
+                    <a href="/contact" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-menu md:hidden mt-4 pb-4">
+                <a href="/" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
+                <a href="/about" class="block py-2 text-gray-700 hover:text-blue-600">About</a>
+                <div class="py-2">
+                    <span class="text-gray-700 font-medium">Tools</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="/instagram-tiktok-hashtag-tool" class="block text-sm text-gray-600 hover:text-blue-600">Instagram & TikTok Hashtag Generator</a>
+                        <a href="/youtube-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">YouTube Tags Generator</a>
+                        <a href="/seo-keyword-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600 text-blue-600">SEO Keyword Generator</a>
+                        <a href="/trending-tags-finder" class="block text-sm text-gray-600 hover:text-blue-600">Trending Tags Finder</a>
+                        <a href="/blog-post-tags-generator" class="block text-sm text-gray-600 hover:text-blue-600">Blog Post Tags Generator</a>
+                    </div>
+                </div>
+                <a href="/contact" class="block py-2 text-gray-700 hover:text-blue-600">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-6">
+                <i class="fas fa-search text-5xl mr-4"></i>
+                <h1 class="text-4xl md:text-5xl font-bold">SEO Keyword Tags Generator</h1>
+            </div>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Discover the perfect keywords to optimize your content and improve search rankings</p>
+            <div class="max-w-2xl mx-auto bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4">Optimize Your Content for Search Engines</h3>
+                <p class="text-lg mb-6">Using the right keywords is essential for improving your content's visibility in search engine results. Our SEO Keyword Tags Generator helps you discover relevant, high-performing keywords that can boost your organic traffic and connect you with your target audience.</p>
+                <div class="grid md:grid-cols-3 gap-4 text-center">
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-chart-line text-2xl mr-2"></i>
+                        <span>Improve search rankings</span>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-users text-2xl mr-2"></i>
+                        <span>Increase organic traffic</span>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-bullseye text-2xl mr-2"></i>
+                        <span>Target the right audience</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg custom-shadow p-8">
+                    <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Generate SEO Keywords</h2>
+                    
+                    <div class="mb-8">
+                        <label for="topicInput" class="block text-lg font-semibold text-gray-800 mb-3">Enter a topic or main keyword:</label>
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <input 
+                                type="text" 
+                                id="topicInput" 
+                                placeholder="e.g., digital marketing, healthy recipes, home renovation"
+                                class="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none text-lg"
+                            >
+                            <button 
+                                onclick="generateKeywords()" 
+                                class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 flex items-center justify-center min-w-max"
+                                id="generateBtn"
+                            >
+                                <i class="fas fa-magic mr-2"></i>
+                                Generate Keywords
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="hidden text-center py-8">
+                        <div class="loading-spinner mx-auto mb-4"></div>
+                        <p class="text-gray-600">Analyzing your topic and generating relevant keywords...</p>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="resultsSection" class="hidden">
+                        <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 rounded">
+                            <div class="flex items-center">
+                                <i class="fas fa-info-circle text-green-500 mr-2"></i>
+                                <p class="text-green-700 font-medium">Keywords generated successfully! Click on any keyword to copy it to your clipboard.</p>
+                            </div>
+                        </div>
+
+                        <!-- Primary Keywords -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-star text-yellow-500 mr-2"></i>
+                                Primary Keywords
+                            </h3>
+                            <p class="text-gray-600 mb-4">Main target keywords that directly describe your content's core topic. These typically have high search volume and competition.</p>
+                            <div id="primaryKeywords" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+                        </div>
+
+                        <!-- Long-tail Keywords -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-list text-blue-500 mr-2"></i>
+                                Long-tail Keywords
+                            </h3>
+                            <p class="text-gray-600 mb-4">Longer, more specific keyword phrases with lower search volume but higher conversion potential and less competition.</p>
+                            <div id="longtailKeywords" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+                        </div>
+
+                        <!-- LSI Keywords -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-sitemap text-purple-500 mr-2"></i>
+                                LSI (Related) Keywords
+                            </h3>
+                            <p class="text-gray-600 mb-4">Semantically related terms that help search engines understand the context and depth of your content.</p>
+                            <div id="lsiKeywords" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+                        </div>
+
+                        <!-- Question Keywords -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-question-circle text-green-500 mr-2"></i>
+                                Question Keywords
+                            </h3>
+                            <p class="text-gray-600 mb-4">Search queries phrased as questions, perfect for voice search optimization and featured snippets.</p>
+                            <div id="questionKeywords" class="grid grid-cols-1 gap-3"></div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col md:flex-row gap-4 justify-center pt-6 border-t border-gray-200">
+                            <button onclick="copyAllKeywords()" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-copy mr-2"></i>
+                                Copy All Keywords
+                            </button>
+                            <button onclick="downloadKeywords()" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-download mr-2"></i>
+                                Download as TXT
+                            </button>
+                            <button onclick="clearResults()" class="bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-trash mr-2"></i>
+                                Clear Results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Content -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">The Ultimate Guide to SEO Keywords: Boosting Your Search Engine Rankings</h2>
+                
+                <div class="bg-white rounded-lg custom-shadow p-8 mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Why Keywords Are the Foundation of SEO Success</h3>
+                    <div class="text-gray-600 space-y-6">
+                        <p>Keywords are the bridge between what people are searching for and the content you provide to fulfill that need. Understanding and strategically implementing the right keywords is fundamental to any successful SEO strategy. When properly researched and applied, keywords help search engines understand your content's purpose and relevance, ultimately determining where your pages rank in search results.</p>
+                        
+                        <p>The importance of keywords in SEO cannot be overstated. They influence virtually every aspect of your online visibility:</p>
+                        
+                        <ul class="list-disc list-inside space-y-2 ml-4">
+                            <li><strong>Search engine rankings:</strong> Keywords help search engines match your content with relevant user queries.</li>
+                            <li><strong>User experience:</strong> Well-chosen keywords ensure your content meets searcher intent, improving engagement metrics.</li>
+                            <li><strong>Content strategy:</strong> Keyword research provides insights into what topics your audience is interested in.</li>
+                            <li><strong>Competitive analysis:</strong> Understanding keyword landscapes helps identify opportunities your competitors might be missing.</li>
+                            <li><strong>ROI measurement:</strong> Tracking keyword performance allows you to measure the effectiveness of your SEO efforts.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg custom-shadow p-8 mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">The Evolution of Keyword Strategy: From Stuffing to Semantic Search</h3>
+                    <div class="text-gray-600 space-y-6">
+                        <p>Keyword strategy has undergone a dramatic transformation over the years. In the early days of SEO, simply stuffing a page with target keywords could yield top rankings. Today, search engines have evolved to understand context, user intent, and the relationships between words and concepts.</p>
+                        
+                        <p>This evolution has been marked by several key milestones:</p>
+                        
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h4 class="font-semibold text-gray-800">Google Panda (2011)</h4>
+                                <p>Penalized low-quality content and keyword stuffing, emphasizing the importance of valuable, well-written content.</p>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-4">
+                                <h4 class="font-semibold text-gray-800">Google Hummingbird (2013)</h4>
+                                <p>Introduced semantic search capabilities, allowing Google to understand the context and meaning behind queries rather than just matching keywords.</p>
+                            </div>
+                            <div class="border-l-4 border-purple-500 pl-4">
+                                <h4 class="font-semibold text-gray-800">RankBrain (2015)</h4>
+                                <p>Google's machine learning algorithm that helps process search queries and better understand user intent.</p>
+                            </div>
+                            <div class="border-l-4 border-red-500 pl-4">
+                                <h4 class="font-semibold text-gray-800">BERT (2019)</h4>
+                                <p>Enhanced Google's ability to understand natural language and context in search queries.</p>
+                            </div>
+                            <div class="border-l-4 border-orange-500 pl-4">
+                                <h4 class="font-semibold text-gray-800">MUM (2021)</h4>
+                                <p>Multitask Unified Model, which is 1,000 times more powerful than BERT and can understand information across text and images in 75 different languages.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg custom-shadow p-8 mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Types of Keywords: Understanding the Different Categories</h3>
+                    <div class="text-gray-600 space-y-6">
+                        <p>Not all keywords are created equal. Understanding the different types of keywords and their characteristics is essential for developing a comprehensive SEO strategy:</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                                    <i class="fas fa-star text-yellow-500 mr-2"></i>
+                                    Primary Keywords
+                                </h4>
+                                <p class="text-sm mb-2">Main target keywords that directly describe your content's core topic. They typically have high search volume and competition.</p>
+                                <p class="text-xs text-blue-600"><strong>Example:</strong> "digital marketing," "weight loss tips," "best smartphones"</p>
+                            </div>
+                            
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                                    <i class="fas fa-list text-blue-500 mr-2"></i>
+                                    Long-tail Keywords
+                                </h4>
+                                <p class="text-sm mb-2">Longer, more specific keyword phrases with lower search volume but higher conversion potential.</p>
+                                <p class="text-xs text-blue-600"><strong>Example:</strong> "affordable digital marketing services for small businesses"</p>
+                            </div>
+                            
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                                    <i class="fas fa-sitemap text-purple-500 mr-2"></i>
+                                    LSI Keywords
+                                </h4>
+                                <p class="text-sm mb-2">Semantically related terms that help search engines understand the context and depth of your content.</p>
+                                <p class="text-xs text-blue-600"><strong>Example:</strong> For "coffee brewing": "grinder," "beans," "roast," "filter," "aroma"</p>
+                            </div>
+                            
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                                    <i class="fas fa-question-circle text-green-500 mr-2"></i>
+                                    Question Keywords
+                                </h4>
+                                <p class="text-sm mb-2">Search queries phrased as questions, increasingly important with voice search and featured snippets.</p>
+                                <p class="text-xs text-blue-600"><strong>Example:</strong> "how to make sourdough bread," "what is content marketing"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg custom-shadow p-8 mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Strategic Keyword Implementation: Beyond Basic Optimization</h3>
+                    <div class="text-gray-600 space-y-6">
+                        <p>Finding the right keywords is only half the battle. Implementing them effectively requires strategic placement and natural integration into high-quality content. Here's how to optimize your content with keywords:</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <i class="fas fa-tag text-blue-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Title Tags and Meta Descriptions</h4>
+                                        <p class="text-sm">Include your primary keyword in your title tag, preferably near the beginning. Create compelling meta descriptions with natural keyword integration.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <i class="fas fa-link text-green-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">URL Structure</h4>
+                                        <p class="text-sm">Create clean, readable URLs that include your target keyword. Avoid unnecessary parameters or numbers.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <i class="fas fa-heading text-purple-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Headings and Subheadings</h4>
+                                        <p class="text-sm">Incorporate keywords into your H1, H2, and H3 tags where relevant to help both users and search engines understand your content structure.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <i class="fas fa-align-left text-red-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Content Body</h4>
+                                        <p class="text-sm">Include your primary keyword and variations naturally throughout your content. Focus on creating valuable information that addresses user intent.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <i class="fas fa-image text-yellow-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Image Optimization</h4>
+                                        <p class="text-sm">Use descriptive, keyword-rich file names and alt text for images. This improves accessibility and provides additional context for search engines.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <i class="fas fa-share-alt text-indigo-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Internal Linking</h4>
+                                        <p class="text-sm">Use descriptive, keyword-rich anchor text when linking between pages on your site to reinforce topical relevance.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg custom-shadow p-8 mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">How Our SEO Keyword Tags Generator Enhances Your Strategy</h3>
+                    <div class="text-gray-600 space-y-6">
+                        <p>Our SEO Keyword Tags Generator is designed to streamline your keyword research process and provide valuable insights for content optimization. Here's how it can benefit your SEO strategy:</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="flex items-start">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Comprehensive keyword suggestions</h4>
+                                    <p class="text-sm">Our tool analyzes your topic to generate a diverse set of relevant keywords across different categories.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <i class="fas fa-layer-group text-blue-500 mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Strategic categorization</h4>
+                                    <p class="text-sm">We organize keywords into primary, long-tail, related, and LSI categories for balanced keyword strategy.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-green-500 mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Time-saving efficiency</h4>
+                                    <p class="text-sm">What might take hours of manual research can be accomplished in seconds with our generator.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <i class="fas fa-copy text-purple-500 mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Easy implementation</h4>
+                                    <p class="text-sm">Copy individual keywords or entire sets with a single click for seamless integration into your content.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-4">Start Optimizing Your Content Today</h3>
+                    <p class="text-lg mb-6">Join thousands of content creators and marketers who are using our free SEO tools to improve their search rankings and connect with their target audience.</p>
+                    <button onclick="document.getElementById('topicInput').focus(); window.scrollTo({top: 0, behavior: 'smooth'});" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+                        <i class="fas fa-arrow-up mr-2"></i>
+                        Generate Keywords Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="text-2xl font-bold" id="footer-logo">Tolzo.site</span>
+                    </div>
+                    <p class="text-gray-300">Free digital optimization tools for creators, marketers, and bloggers.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Tools</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="/instagram-tiktok-hashtag-tool" class="hover:text-white">Instagram & TikTok Hashtag Tool</a></li>
+                        <li><a href="/youtube-tags-generator" class="hover:text-white">YouTube Tags Generator</a></li>
+                        <li><a href="/seo-keyword-tags-generator" class="hover:text-white text-blue-400">SEO Keyword Tags Generator</a></li>
+                        <li><a href="/trending-tags-finder" class="hover:text-white">Trending Tags Finder</a></li>
+                        <li><a href="/blog-post-tags-generator" class="hover:text-white">Blog Post Tags Generator</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="/about" class="hover:text-white">About Us</a></li>
+                        <li><a href="/contact" class="hover:text-white">Contact</a></li>
+                        <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-white">Terms & Conditions</a></li>
+                        <li><a href="/disclaimer" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe to get updates on new tools and features.</p>
+                    <form class="flex flex-col space-y-2" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+                        <input type="email" placeholder="Your email" class="px-3 py-2 rounded text-gray-800" required>
+                        <button type="submit" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition duration-300">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 <span id="copyright-domain">Tolzo.site</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Keyword database for different topics
+        const keywordDatabase = {
+            "digital marketing": {
+                primary: ["digital marketing", "online marketing", "internet marketing", "digital advertising", "marketing strategy"],
+                longtail: ["digital marketing strategies for small business", "best digital marketing tools 2025", "how to start digital marketing agency", "digital marketing course online free", "digital marketing vs traditional marketing"],
+                lsi: ["SEO", "social media", "content marketing", "email marketing", "PPC", "analytics", "conversion rate", "brand awareness", "lead generation", "marketing automation"],
+                questions: ["What is digital marketing?", "How to learn digital marketing?", "Why is digital marketing important?", "Which digital marketing course is best?", "How much does digital marketing cost?"]
+            },
+            "healthy recipes": {
+                primary: ["healthy recipes", "nutritious meals", "healthy cooking", "diet recipes", "wellness food"],
+                longtail: ["easy healthy recipes for weight loss", "healthy recipes for busy families", "quick healthy breakfast recipes", "low carb healthy dinner recipes", "healthy meal prep recipes"],
+                lsi: ["nutrition", "calories", "protein", "vegetables", "whole grains", "meal planning", "cooking tips", "ingredients", "dietary", "vitamins"],
+                questions: ["What are some healthy recipes?", "How to cook healthy meals?", "What makes a recipe healthy?", "How to meal prep healthy foods?", "What are easy healthy recipes?"]
+            },
+            "home renovation": {
+                primary: ["home renovation", "house remodeling", "home improvement", "interior design", "home makeover"],
+                longtail: ["home renovation ideas on a budget", "DIY home renovation projects", "small home renovation tips", "home renovation cost calculator", "modern home renovation designs"],
+                lsi: ["contractor", "budget", "planning", "permits", "materials", "design", "construction", "flooring", "kitchen", "bathroom"],
+                questions: ["How to plan home renovation?", "What is the cost of home renovation?", "How to renovate home on budget?", "Which home renovation adds most value?", "How long does home renovation take?"]
+            }
+        };
+
+        // Get current domain and update all domain references
+        function updateDomainReferences() {
+            const currentDomain = window.location.hostname.replace('www.', '') || 'Tolzo.site';
+            const domainElements = ['header-logo', 'footer-logo', 'copyright-domain'];
+            
+            domainElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = currentDomain;
+                }
+            });
+        }
+
+        // Toggle dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.dropdown');
+            const toolsButton = event.target.closest('button');
+            
+            if (!toolsButton || !toolsButton.textContent.includes('Tools')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Generate keywords based on input
+        function generateKeywords() {
+            const topic = document.getElementById('topicInput').value.trim().toLowerCase();
+            
+            if (!topic) {
+                alert('Please enter a topic or keyword to generate suggestions.');
+                return;
+            }
+
+            // Show loading state
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+            document.getElementById('generateBtn').disabled = true;
+
+            // Simulate API call delay
+            setTimeout(() => {
+                const keywords = getKeywordsForTopic(topic);
+                displayResults(keywords, topic);
+                
+                // Hide loading state
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('resultsSection').classList.remove('hidden');
+                document.getElementById('generateBtn').disabled = false;
+            }, 2000);
+        }
+
+        // Get keywords for a specific topic
+        function getKeywordsForTopic(topic) {
+            // Check if we have exact match in database
+            if (keywordDatabase[topic]) {
+                return keywordDatabase[topic];
+            }
+
+            // Generate keywords based on topic
+            const baseKeywords = {
+                primary: [
+                    topic,
+                    `${topic} guide`,
+                    `best ${topic}`,
+                    `${topic} tips`,
+                    `${topic} strategy`
+                ],
+                longtail: [
+                    `how to ${topic} for beginners`,
+                    `${topic} step by step guide`,
+                    `best ${topic} practices 2025`,
+                    `${topic} tools and resources`,
+                    `professional ${topic} services`,
+                    `${topic} course online`,
+                    `${topic} examples and case studies`
+                ],
+                lsi: generateLSIKeywords(topic),
+                questions: [
+                    `What is ${topic}?`,
+                    `How to start with ${topic}?`,
+                    `Why is ${topic} important?`,
+                    `What are the benefits of ${topic}?`,
+                    `How much does ${topic} cost?`,
+                    `Where to learn ${topic}?`
+                ]
+            };
+
+            return baseKeywords;
+        }
+
+        // Generate LSI keywords based on topic
+        function generateLSIKeywords(topic) {
+            const commonLSI = ['guide', 'tips', 'best', 'how to', 'examples', 'tools', 'resources', 'strategy', 'techniques', 'methods'];
+            const topicWords = topic.split(' ');
+            const lsiKeywords = [];
+
+            // Add common LSI terms
+            commonLSI.forEach(term => {
+                lsiKeywords.push(term);
+            });
+
+            // Add variations of the topic
+            topicWords.forEach(word => {
+                lsiKeywords.push(`${word} basics`);
+                lsiKeywords.push(`${word} advanced`);
+                lsiKeywords.push(`${word} tutorial`);
+            });
+
+            return lsiKeywords.slice(0, 10); // Return first 10
+        }
+
+        // Display generated keywords
+        function displayResults(keywords, topic) {
+            displayKeywordCategory('primaryKeywords', keywords.primary, 'primary');
+            displayKeywordCategory('longtailKeywords', keywords.longtail, 'longtail');
+            displayKeywordCategory('lsiKeywords', keywords.lsi, 'lsi');
+            displayKeywordCategory('questionKeywords', keywords.questions, 'question');
+        }
+
+        // Display keywords in a specific category
+        function displayKeywordCategory(containerId, keywords, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            keywords.forEach((keyword, index) => {
+                const keywordElement = createKeywordElement(keyword, type, index);
+                container.appendChild(keywordElement);
+            });
+        }
+
+        // Create individual keyword element
+        function createKeywordElement(keyword, type, index) {
+            const div = document.createElement('div');
+            div.className = 'keyword-tag p-3 rounded-lg flex items-center justify-between group';
+            
+            const difficulty = ['easy', 'medium', 'hard'][Math.floor(Math.random() * 3)];
+            const volume = ['high', 'medium', 'low'][Math.floor(Math.random() * 3)];
+            
+            div.innerHTML = `
+                <div class="flex-1">
+                    <span class="font-medium">${keyword}</span>
+                    <div class="flex items-center mt-1 space-x-2 text-xs">
+                        <span class="difficulty-${difficulty}">
+                            <i class="fas fa-circle mr-1"></i>
+                            ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} difficulty
+                        </span>
+                        <span class="search-volume-${volume}">
+                            <i class="fas fa-chart-bar mr-1"></i>
+                            ${volume.charAt(0).toUpperCase() + volume.slice(1)} volume
+                        </span>
+                    </div>
+                </div>
+                <div class="opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-copy text-gray-500"></i>
+                </div>
+            `;
+            
+            div.addEventListener('click', () => {
+                copyToClipboard(keyword, div);
+            });
+            
+            return div;
+        }
+
+        // Copy keyword to clipboard
+        function copyToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback
+                element.classList.add('copied');
+                const icon = element.querySelector('i');
+                icon.className = 'fas fa-check text-white';
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    element.classList.remove('copied');
+                    icon.className = 'fas fa-copy text-gray-500';
+                }, 2000);
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Visual feedback
+                element.classList.add('copied');
+                setTimeout(() => {
+                    element.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Copy all keywords
+        function copyAllKeywords() {
+            const allKeywords = [];
+            
+            // Collect all keywords from all categories
+            document.querySelectorAll('.keyword-tag span.font-medium').forEach(element => {
+                allKeywords.push(element.textContent);
+            });
+            
+            const keywordText = allKeywords.join(', ');
+            
+            navigator.clipboard.writeText(keywordText).then(() => {
+                alert('All keywords copied to clipboard!');
+            }).catch(() => {
+                // Fallback
+                const textArea = document.createElement('textarea');
+                textArea.value = keywordText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('All keywords copied to clipboard!');
+            });
+        }
+
+        // Download keywords as TXT file
+        function downloadKeywords() {
+            const topic = document.getElementById('topicInput').value.trim();
+            const allKeywords = [];
+            
+            // Collect keywords by category
+            const categories = [
+                { name: 'Primary Keywords', id: 'primaryKeywords' },
+                { name: 'Long-tail Keywords', id: 'longtailKeywords' },
+                { name: 'LSI Keywords', id: 'lsiKeywords' },
+                { name: 'Question Keywords', id: 'questionKeywords' }
+            ];
+            
+            let content = `SEO Keywords for: ${topic}\n`;
+            content += `Generated on: ${new Date().toLocaleDateString()}\n`;
+            content += `=================================\n\n`;
+            
+            categories.forEach(category => {
+                const container = document.getElementById(category.id);
+                const keywords = Array.from(container.querySelectorAll('.keyword-tag span.font-medium')).map(el => el.textContent);
+                
+                if (keywords.length > 0) {
+                    content += `${category.name}:\n`;
+                    keywords.forEach(keyword => {
+                        content += `- ${keyword}\n`;
+                    });
+                    content += '\n';
+                }
+            });
+            
+            // Create and download file
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `seo-keywords-${topic.replace(/\s+/g, '-')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Clear results
+        function clearResults() {
+            document.getElementById('resultsSection').classList.add('hidden');
+            document.getElementById('topicInput').value = '';
+            document.getElementById('topicInput').focus();
+        }
+
+        // Allow Enter key to generate keywords
+        document.getElementById('topicInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generateKeywords();
+            }
+        });
+
+        // Initialize domain references on page load
+        document.addEventListener('DOMContentLoaded', updateDomainReferences);
+    </script>
+</body>
+</html>
