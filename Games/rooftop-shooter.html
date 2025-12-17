@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="/Games/rooftop-shooter.css">
 </head>
 <body>
+<div id="loading-screen">
+    <div class="loader"></div>
+    <div class="loading-text">LOADING...</div>
+</div>
     <div id="gameContainer">
         <canvas id="gameCanvas"></canvas>
         
@@ -102,6 +106,21 @@
             </div>
         </div>
     </div>
+<script>
+    window.addEventListener('load', function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        
+        // Optional: Add a small delay to ensure smooth transition
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            
+            // Remove the element from the DOM after the fade out is done
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500); // Matches the CSS transition time (0.5s)
+        }, 1000); // Waits 1 second before fading out (adjust as needed)
+    });
+</script>
 
     <script src="/Games/rooftop-shooter.js"></script>
 </body>
