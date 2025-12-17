@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rooftop Defender</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div id="ui-layer">
+            <div class="hud-top">
+                <div class="hud-left">
+                    <div id="scoreDisplay">SCORE: 0</div>
+                    <div id="powerUpDisplay" class="power-up-display"></div>
+                </div>
+                <div class="hud-right">
+                    <div class="health-container">
+                        <div>HP</div>
+                        <div class="health-bar-bg">
+                            <div id="healthFill" class="health-bar-fill"></div>
+                        </div>
+                    </div>
+                    <div class="difficulty-display">WAVE: 1</div>
+                </div>
+            </div>
+            
+            <!-- Aiming indicator -->
+            <div id="aimIndicator" class="hidden"></div>
+        </div>
+
+        <div id="lobbyScreen">
+            <h1>Rooftop<br>Defender</h1>
+            <div class="high-score-container">
+                <h2>🏆 HIGH SCORE</h2>
+                <div id="highScoreDisplay">0</div>
+            </div>
+            <div class="stats-container">
+                <div class="stat">
+                    <div class="stat-label">MISSIONS</div>
+                    <div id="missionsCount" class="stat-value">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">DRONES SHOT</div>
+                    <div id="dronesShotCount" class="stat-value">0</div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="btn" id="startBtn">START MISSION</button>
+                <button class="btn secondary-btn" id="howToPlayBtn">HOW TO PLAY</button>
+            </div>
+        </div>
+
+        <div id="howToPlayScreen" class="hidden">
+            <div class="modal-content">
+                <h1>HOW TO PLAY</h1>
+                <div class="instructions">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🎯</div>
+                        <p><strong>TAP & HOLD</strong> to aim and shoot</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⚡</div>
+                        <p>Collect <strong>POWER-UPS</strong> from drones</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🛡️</div>
+                        <p>Protect your base from incoming drones</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">💥</div>
+                        <p>Destroy drones to increase score and collect power-ups</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⭐</div>
+                        <p>Power-ups include: Double Shot, Rapid Fire, Health Boost</p>
+                    </div>
+                </div>
+                <button class="btn" id="backToLobbyBtn">BACK TO LOBBY</button>
+            </div>
+        </div>
+
+        <div id="gameOverScreen" class="hidden">
+            <h1 style="color: #ff4444;">Mission Failed</h1>
+            <p id="finalScore">Score: 0</p>
+            <p id="newHighScore" class="hidden">🏆 NEW HIGH SCORE! 🏆</p>
+            <div class="stats-container">
+                <div class="stat">
+                    <div class="stat-label">DRONES DESTROYED</div>
+                    <div id="finalDronesShot" class="stat-value">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">POWER-UPS COLLECTED</div>
+                    <div id="finalPowerUpsCollected" class="stat-value">0</div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="btn" id="restartBtn">TRY AGAIN</button>
+                <button class="btn secondary-btn" id="backToMenuBtn">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
